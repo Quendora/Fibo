@@ -10,7 +10,7 @@
 
 class Fido {
 private:
-  std::list<short> number;
+  std::list<short> number_;
 
 public:
   std::string ToString() const;
