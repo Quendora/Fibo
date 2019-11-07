@@ -9,11 +9,18 @@
 #include <string>
 using namespace std;
 
-class Fibo
-{
-	private: std::list<short> fibits;
-	public: std::string ToString() const;
-			size_t length(); //tymczasowo size_t
+class Fibo {
+private:
+  std::list<short> fibits_;
+public:
+  explicit Fibo(int ile); //FIXME: It's just for testing purpose
+
+  std::string ToString() const;
+
+  size_t length(); //tymczasowo size_t
+
+  Fibo &operator+=(const Fibo &comp);
+
 };
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo);
