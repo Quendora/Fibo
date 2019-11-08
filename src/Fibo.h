@@ -12,6 +12,10 @@ using namespace std;
 class Fibo {
 private:
   std::list<short> fibits_;
+
+  void Normalize();
+
+  void RemoveNonBit();
 public:
   explicit Fibo(int ile); //FIXME: It's just for testing purpose
 

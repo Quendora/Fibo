@@ -3,7 +3,7 @@
 
 int main()
 {
-  Fibo a(1);
+  Fibo a(5);
   Fibo b(5);
   a+=b;
   std::cerr << a;

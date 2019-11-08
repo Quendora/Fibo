@@ -2,6 +2,7 @@
 // Created by Karolina Zygmunt and Krystian Król on 04.11.19.
 //
 
+#include <iostream>
 #include "Fibo.h"
 
 std::string Fibo::ToString() const
@@ -47,10 +48,133 @@ Fibo &Fibo::operator+=(const Fibo &comp) {
 		}
 	}
 
+	RemoveNonBit();
+
+  Normalize();
+
+  return *this;
 }
+void Fibo::Normalize() {
+
+  for(int i = 0; i < 3; i++) {
+	  fibits_.push_front(0);
+	}
+  auto third_ptr = fibits_.end();
+  third_ptr--;
+  auto second_ptr = third_ptr;
+  second_ptr--;
+  auto first_ptr = second_ptr;
+  first_ptr--;
+
+  while (first_ptr != fibits_.begin()) {
+      if(*third_ptr == 1 && *second_ptr == 1 && *first_ptr == 0) {
+        *first_ptr = 1;
+        *second_ptr = 0;
+        *third_ptr = 0;
+      }
+      third_ptr--;
+      second_ptr--;
+      first_ptr--;
+    }
+  while(third_ptr != fibits_.end()) {
+
+      if(*third_ptr == 1 && *second_ptr == 1) {
+        *first_ptr = 1;
+        *second_ptr = 0;
+        *third_ptr = 0;
+      }
+
+      third_ptr++;
+      second_ptr++;
+      first_ptr++;
+    }
+
+  first_ptr = fibits_.begin();
+  while (!fibits_.empty() && *first_ptr == 0) {
+      fibits_.pop_front();
+      first_ptr = fibits_.begin();
+    }
+}
+
+void Fibo::RemoveNonBit() {
+
+  for(int i = 0; i < 3; i++) {
+    fibits_.push_front(0);
+  }
+
+  auto first_ptr = fibits_.begin();
+  auto second_ptr = first_ptr;
+  second_ptr++;
+  auto third_ptr = second_ptr;
+  third_ptr++;
+  auto forth_ptr = third_ptr;
+  forth_ptr++;
+
+  while(forth_ptr != fibits_.end()) {
+
+	  if(*second_ptr == 2 && *third_ptr == 0) {
+	    *first_ptr = 1;
+	    *second_ptr = 0;
+        (*forth_ptr)++;
+	  }
+
+	  if(*second_ptr == 3 && *third_ptr == 0) {
+        *first_ptr = 1;
+        *second_ptr = 1;
+        (*forth_ptr)++;
+      }
+
+	  if(*second_ptr == 2 && *third_ptr == 1) {
+        *first_ptr = 1;
+        *second_ptr = 1;
+        *third_ptr = 0;
+      }
+
+	  if(*second_ptr == 1 && *third_ptr == 2) {
+        *first_ptr = 1;
+        *second_ptr = 0;
+        *third_ptr = 1;
+      }
+
+	  first_ptr++;
+	  second_ptr++;
+	  third_ptr++;
+	  forth_ptr++;
+	}
+
+  if(*second_ptr == 2) {
+
+      if(*third_ptr == 0) {
+
+        *first_ptr = 1;
+        *second_ptr = 0;
+        *third_ptr = 1;
+      }
+      else {
+
+        *first_ptr = 1;
+        *second_ptr = 1;
+        *third_ptr = 0;
+      }
+	}
+
+  if(*third_ptr >= 2) {
+
+	  *second_ptr = 1;
+
+	  if(*third_ptr == 2) {
+	    *third_ptr = 0;
+	  }
+	  else {
+	    *third_ptr = 1;
+	  }
+
+	}
+}
+
 Fibo::Fibo(int ile) {
 
 	for (int i = 0; i < ile; i++) {
-		fibits_.push_back(1);
+		fibits_.push_back((i+1)%2);
 	}
 }
