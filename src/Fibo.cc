@@ -8,6 +8,9 @@
 std::string Fibo::ToString() const
 {
 	string out;
+	if(fibits_.empty()) {
+	  out = "0";
+	}
 	for(auto it : fibits_) {
 		out += ('0'+it);
 	}
@@ -54,6 +57,7 @@ Fibo &Fibo::operator+=(const Fibo &comp) {
 
   return *this;
 }
+
 void Fibo::Normalize() {
 
   for(int i = 0; i < 3; i++) {
@@ -67,7 +71,7 @@ void Fibo::Normalize() {
   first_ptr--;
 
   while (first_ptr != fibits_.begin()) {
-      if(*third_ptr == 1 && *second_ptr == 1 && *first_ptr == 0) {
+      if(*first_ptr == 0 && *second_ptr == 1 && *third_ptr == 1) {
         *first_ptr = 1;
         *second_ptr = 0;
         *third_ptr = 0;
@@ -78,7 +82,7 @@ void Fibo::Normalize() {
     }
   while(third_ptr != fibits_.end()) {
 
-      if(*third_ptr == 1 && *second_ptr == 1) {
+      if(*second_ptr == 1 && *third_ptr == 1) {
         *first_ptr = 1;
         *second_ptr = 0;
         *third_ptr = 0;
@@ -177,4 +181,25 @@ Fibo::Fibo(int ile) {
 	for (int i = 0; i < ile; i++) {
 		fibits_.push_back((i+1)%2);
 	}
+}
+
+Fibo::Fibo(Fibo &&to_move) noexcept {
+  this->fibits_ = to_move.fibits_;
+  std::cout << "HERE\n";
+}
+
+Fibo &Fibo::operator=(const Fibo &other) {
+  if(&other != this) {
+    this->fibits_.assign(other.fibits_.begin(), other.fibits_.end());
+  }
+
+  return *this;
+}
+
+Fibo::Fibo(std::string str) { //TODO: Check if correct
+
+  for(char c : str) {
+    fibits_.push_back(c-'0');
+  }
+  Normalize();
 }
