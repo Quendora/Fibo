@@ -21,8 +21,12 @@ public:
 
   std::string ToString() const;
 
-  size_t length(); //tymczasowo size_t
+  size_t length() const; //tymczasowo size_t
 
+  Fibo &operator<<=(int n);
+  Fibo &operator^=(const Fibo &comp);
+  Fibo &operator|=(const Fibo &comp);
+  Fibo &operator&=(const Fibo &comp);
   Fibo &operator+=(const Fibo &comp);
 
 };
