@@ -5,6 +5,35 @@
 #include <iostream>
 #include "Fibo.h"
 
+const char ZERO_CHAR = '0';
+
+const Fibo Zero()
+{
+	static const Fibo zero = Fibo();
+
+	return zero;
+}
+
+const Fibo One()
+{
+	static const Fibo one = Fibo("1");
+
+	return one;
+}
+
+Fibo::Fibo() = default;
+
+//TODO CZY TRZEBA SPRAWDZAC CZY STRING JEST POPRAWNY?
+Fibo::Fibo(const string &s)
+{
+	for (char fibit: s)
+	{
+		fibits_.push_back(fibit - ZERO_CHAR);
+	}
+
+	Normalize();
+}
+
 Fibo::Fibo(int ile)
 {
 	for (int i = 0; i < ile; i++)
@@ -26,6 +55,11 @@ Fibo::Fibo(const Fibo &comp)
 	}
 }
 
+size_t Fibo::length() const
+{
+	return fibits_.size();
+}
+
 std::string Fibo::ToString() const
 {
 	string out;
@@ -42,11 +76,6 @@ std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 			<< fibo.ToString(); //FIXME: This is temporary as it may be inefficient
 }
 
-size_t Fibo::length() const
-{
-	return fibits_.size();
-}
-
 //TODO CZY DA SIE ZROBIC OPERATOR = ZA POMOCA KONSTRUKTORA KOPIUJACEGO?
 Fibo &Fibo::operator=(const Fibo &comp)
 {
@@ -61,6 +90,64 @@ Fibo &Fibo::operator=(const Fibo &comp)
 	}
 
 	return *this;
+}
+
+bool Fibo::operator==(const Fibo &comp) const
+{
+	if (length() != comp.length())
+	{
+		return false;
+	}
+
+	auto comp_ptr = comp.fibits_.end();
+	auto this_ptr = fibits_.end();
+
+	while (this_ptr != fibits_.begin())
+	{
+		comp_ptr--;
+		this_ptr--;
+
+		if (*this_ptr != *comp_ptr)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool Fibo::operator<(const Fibo &comp) const
+{
+	if (length() < comp.length())
+	{
+		return true;
+	}
+	else if (length() > comp.length())
+	{
+		return false;
+	}
+	else
+	{
+		auto comp_ptr = comp.fibits_.end();
+		auto this_ptr = fibits_.end();
+
+		while (this_ptr != fibits_.begin())
+		{
+			comp_ptr--;
+			this_ptr--;
+
+			if (*this_ptr < *comp_ptr)
+			{
+				return true;
+			}
+			else if (*this_ptr > *comp_ptr)
+			{
+				return false;
+			}
+		}
+
+		return false;
+	}
 }
 
 Fibo &Fibo::operator<<=(int n)

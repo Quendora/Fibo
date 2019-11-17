@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "Fibo.h"
 
 void testingADD()
@@ -7,6 +8,14 @@ void testingADD()
 	Fibo b(5);
 	a += b;
 	std::cerr << a;
+}
+
+void testingSTRING_CONSTRUCTOR()
+{
+	Fibo a("10101");
+	std::cerr << a << endl;
+	Fibo b("001010001");
+	std::cerr << b << endl;
 }
 
 void testingCOPY_CONSTRUCTOR()
@@ -108,11 +117,18 @@ void testingAND()
 
 int main()
 {
+	Fibo f;
+
+//	Zero() += Fibo("10");
+	assert(f == Zero());
+	assert(Zero() < One());
+
 //	testingADD();
 //	testingAND();
 //	testingOR();
 //	testingXOR();
 //	testingLSHIFT();
 //	testingASSIGNMENT();
-	testingCOPY_CONSTRUCTOR();
+//	testingCOPY_CONSTRUCTOR();
+//	testingSTRING_CONSTRUCTOR();
 }

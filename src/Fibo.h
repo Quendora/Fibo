@@ -7,31 +7,47 @@
 
 #include <list>
 #include <string>
+
 using namespace std;
-
-class Fibo {
+class Fibo
+{
 private:
-  std::list<short> fibits_;
+	std::list<short> fibits_;
 
-  void Normalize();
+	void Normalize();
 
-  void RemoveNonBit();
+	void RemoveNonBit();
+
 public:
-  explicit Fibo(int ile); //FIXME: It's just for testing purpose
-  Fibo(const Fibo &comp); //FIXME: explicit or implicit?
+	explicit Fibo(int ile); //FIXME: It's just for testing purpose
+	Fibo(const Fibo &comp); //FIXME: explicit or implicit?
+	explicit Fibo(const string &s);
+	Fibo();
 
-  std::string ToString() const;
+	std::string ToString() const;
 
-  size_t length() const; //tymczasowo size_t
+	size_t length() const; //tymczasowo size_t
 
-  Fibo &operator=(const Fibo &comp);
-  Fibo &operator<<=(int n);
-  Fibo &operator^=(const Fibo &comp);
-  Fibo &operator|=(const Fibo &comp);
-  Fibo &operator&=(const Fibo &comp);
-  Fibo &operator+=(const Fibo &comp);
+	Fibo &operator=(const Fibo &comp);
 
+	bool operator==(const Fibo &comp) const;
+
+	bool operator<(const Fibo &comp) const;
+
+	Fibo &operator<<=(int n);
+
+	Fibo &operator^=(const Fibo &comp);
+
+	Fibo &operator|=(const Fibo &comp);
+
+	Fibo &operator&=(const Fibo &comp);
+
+	Fibo &operator+=(const Fibo &comp);
 };
+
+const Fibo Zero();
+
+const Fibo One();
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo);
 
