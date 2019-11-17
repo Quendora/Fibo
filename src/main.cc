@@ -121,8 +121,15 @@ int main()
 
 //	Zero() += Fibo("10");
 	assert(f == Zero());
+	assert(Fibo(f) == Zero());
 	assert(Zero() < One());
+	assert(Fibo("11") == Fibo("100"));
 
+	f = One();
+	f <<= 3;
+	assert(f == Fibo("1000"));
+
+	assert(Fibo("11").length() == 3);
 //	testingADD();
 //	testingAND();
 //	testingOR();

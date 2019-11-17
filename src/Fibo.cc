@@ -152,16 +152,8 @@ bool Fibo::operator<(const Fibo &comp) const
 
 Fibo &Fibo::operator<<=(int n)
 {
-	if (n >= length())
-	{
-		fibits_.clear();
-
-		return *this;
-	}
-
 	for (int i = 0; i < n; i++)
 	{
-		fibits_.pop_front();
 		fibits_.push_back(0);
 	}
 
