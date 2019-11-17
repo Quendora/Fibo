@@ -65,7 +65,7 @@ std::string Fibo::ToString() const
 	string out;
 	for (auto it : fibits_)
 	{
-		out += ('0' + it);
+		out += (ZERO_CHAR + it);
 	}
 	return out;
 }

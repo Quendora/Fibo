@@ -119,17 +119,22 @@ int main()
 {
 	Fibo f;
 
-//	Zero() += Fibo("10");
-	assert(f == Zero());
-	assert(Fibo(f) == Zero());
-	assert(Zero() < One());
-	assert(Fibo("11") == Fibo("100"));
+//	Zero() += Fibo("10"); // SHOULD NOT COMPILE
+//	assert(f == Zero());
+//	assert(Fibo(f) == Zero());
+//	assert(Zero() < One());
+//	assert(Fibo("11") == Fibo("100"));
+//
+//	f = One();
+//	f <<= 3;
+//	assert(f == Fibo("1000"));
+//
+//	assert(Fibo("11").length() == 3);
+//
+//	Fibo f1("101");
+//	Fibo f2 = Fibo("101");
+//	assert(f1 == f2);
 
-	f = One();
-	f <<= 3;
-	assert(f == Fibo("1000"));
-
-	assert(Fibo("11").length() == 3);
 //	testingADD();
 //	testingAND();
 //	testingOR();
