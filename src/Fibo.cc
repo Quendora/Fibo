@@ -26,6 +26,23 @@ size_t Fibo::length() const
 	return fibits_.size();
 }
 
+Fibo &Fibo::operator=(const Fibo &comp)
+{
+	if (this == &comp)
+	{
+		return *this;
+	}
+
+	fibits_.clear();
+
+	for (short fibit: comp.fibits_)
+	{
+		fibits_.push_back(fibit);
+	}
+
+	return *this;
+}
+
 Fibo &Fibo::operator<<=(int n)
 {
 	if (n >= length())

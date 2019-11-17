@@ -9,6 +9,17 @@ void testingADD()
 	std::cerr << a;
 }
 
+void testingASSIGNMENT()
+{
+	Fibo a(8);
+	std::cerr << a << endl;
+	Fibo b(5);
+	std::cerr << b << endl;
+	a = b;
+
+	std::cerr << a << endl;
+}
+
 void testingLSHIFT()
 {
 	Fibo a(5);
@@ -85,5 +96,6 @@ int main()
 //	testingAND();
 //	testingOR();
 //	testingXOR();
-	testingLSHIFT();
+//	testingLSHIFT();
+	testingASSIGNMENT();
 }

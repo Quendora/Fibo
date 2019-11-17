@@ -23,6 +23,7 @@ public:
 
   size_t length() const; //tymczasowo size_t
 
+  Fibo &operator=(const Fibo &comp);
   Fibo &operator<<=(int n);
   Fibo &operator^=(const Fibo &comp);
   Fibo &operator|=(const Fibo &comp);
