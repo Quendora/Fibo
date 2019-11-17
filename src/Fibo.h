@@ -18,6 +18,7 @@ private:
   void RemoveNonBit();
 public:
   explicit Fibo(int ile); //FIXME: It's just for testing purpose
+  Fibo(const Fibo &comp); //FIXME: explicit or implicit?
 
   std::string ToString() const;
 

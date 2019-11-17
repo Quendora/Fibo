@@ -5,6 +5,27 @@
 #include <iostream>
 #include "Fibo.h"
 
+Fibo::Fibo(int ile)
+{
+	for (int i = 0; i < ile; i++)
+	{
+		fibits_.push_back((i + 1) % 2);
+	}
+}
+
+Fibo::Fibo(const Fibo &comp)
+{
+	if (this != &comp)
+	{
+		fibits_.clear();
+
+		for (short fibit: comp.fibits_)
+		{
+			fibits_.push_back(fibit);
+		}
+	}
+}
+
 std::string Fibo::ToString() const
 {
 	string out;
@@ -26,18 +47,17 @@ size_t Fibo::length() const
 	return fibits_.size();
 }
 
+//TODO CZY DA SIE ZROBIC OPERATOR = ZA POMOCA KONSTRUKTORA KOPIUJACEGO?
 Fibo &Fibo::operator=(const Fibo &comp)
 {
-	if (this == &comp)
+	if (this != &comp)
 	{
-		return *this;
-	}
+		fibits_.clear();
 
-	fibits_.clear();
-
-	for (short fibit: comp.fibits_)
-	{
-		fibits_.push_back(fibit);
+		for (short fibit: comp.fibits_)
+		{
+			fibits_.push_back(fibit);
+		}
 	}
 
 	return *this;
@@ -340,13 +360,5 @@ void Fibo::RemoveNonBit()
 		{
 			*third_ptr = 1;
 		}
-	}
-}
-
-Fibo::Fibo(int ile)
-{
-	for (int i = 0; i < ile; i++)
-	{
-		fibits_.push_back((i + 1) % 2);
 	}
 }

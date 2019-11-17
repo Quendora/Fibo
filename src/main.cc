@@ -9,14 +9,30 @@ void testingADD()
 	std::cerr << a;
 }
 
-void testingASSIGNMENT()
+void testingCOPY_CONSTRUCTOR()
 {
-	Fibo a(8);
+	Fibo a(7);
 	std::cerr << a << endl;
 	Fibo b(5);
 	std::cerr << b << endl;
-	a = b;
 
+	Fibo c = a;
+	std::cerr << c << endl;
+	a = b;
+	std::cerr << c << endl;
+}
+
+void testingASSIGNMENT()
+{
+	Fibo a(7);
+	std::cerr << a << endl;
+	Fibo b(5);
+	std::cerr << b << endl;
+	Fibo c(8);
+	std::cerr << c << endl;
+	a = b;
+	std::cerr << a << endl;
+	b = c;
 	std::cerr << a << endl;
 }
 
@@ -97,5 +113,6 @@ int main()
 //	testingOR();
 //	testingXOR();
 //	testingLSHIFT();
-	testingASSIGNMENT();
+//	testingASSIGNMENT();
+	testingCOPY_CONSTRUCTOR();
 }
