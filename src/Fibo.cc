@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Fibo.h"
 
 const char ZERO_CHAR = '0';
@@ -67,6 +68,7 @@ std::string Fibo::ToString() const
 	{
 		out += (ZERO_CHAR + it);
 	}
+	//reverse(out.begin(), out.end());
 	return out;
 }
 
@@ -83,7 +85,7 @@ Fibo &Fibo::operator=(const Fibo &comp)
 	{
 		fibits_.clear();
 
-		for (short fibit: comp.fibits_)
+		for (auto fibit: comp.fibits_)
 		{
 			fibits_.push_back(fibit);
 		}
@@ -161,80 +163,80 @@ Fibo &Fibo::operator<<=(int n)
 
 	return *this;
 }
+//
+//Fibo &Fibo::operator^=(const Fibo &comp)
+//{
+//	if (comp.fibits_.empty())
+//	{
+//		return *this;
+//	}
+//
+//	auto comp_ptr = comp.fibits_.end();
+//	auto this_ptr = fibits_.end();
+//
+//	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
+//	{
+//		comp_ptr--;
+//		this_ptr--;
+//
+//		if ((*this_ptr == 1 && *comp_ptr == 0) ||
+//		(*this_ptr == 0 && *comp_ptr == 1))
+//		{
+//			*this_ptr = 1;
+//		}
+//		else
+//		{
+//			*this_ptr = 0;
+//		}
+//	}
+//
+//	while (comp_ptr != comp.fibits_.begin())
+//	{
+//		comp_ptr--;
+//		fibits_.push_front(*comp_ptr);
+//	}
+//
+//	Normalize();
+//
+//	return *this;
+//}
 
-Fibo &Fibo::operator^=(const Fibo &comp)
-{
-	if (comp.fibits_.empty())
-	{
-		return *this;
-	}
-
-	auto comp_ptr = comp.fibits_.end();
-	auto this_ptr = fibits_.end();
-
-	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
-	{
-		comp_ptr--;
-		this_ptr--;
-
-		if ((*this_ptr == 1 && *comp_ptr == 0) ||
-		(*this_ptr == 0 && *comp_ptr == 1))
-		{
-			*this_ptr = 1;
-		}
-		else
-		{
-			*this_ptr = 0;
-		}
-	}
-
-	while (comp_ptr != comp.fibits_.begin())
-	{
-		comp_ptr--;
-		fibits_.push_front(*comp_ptr);
-	}
-
-	Normalize();
-
-	return *this;
-}
-
-
-Fibo &Fibo::operator|=(const Fibo &comp)
-{
-	if (comp.fibits_.empty())
-	{
-		return *this;
-	}
-
-	auto comp_ptr = comp.fibits_.end();
-	auto this_ptr = fibits_.end();
-
-	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
-	{
-		comp_ptr--;
-		this_ptr--;
-
-		if (*this_ptr == 1 || *comp_ptr == 1)
-		{
-			*this_ptr = 1;
-		}
-		else
-		{
-			*this_ptr = 0;
-		}
-	}
-
-	while (comp_ptr != comp.fibits_.begin())
-	{
-		comp_ptr--;
-		fibits_.push_front(*comp_ptr);
-	}
-
-	Normalize();
-
-	return *this;
-}
+//
+//Fibo &Fibo::operator|=(const Fibo &comp)
+//{
+//	if (comp.fibits_.empty())
+//	{
+//		return *this;
+//	}
+//
+//	auto comp_ptr = comp.fibits_.end();
+//	auto this_ptr = fibits_.end();
+//
+//	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
+//	{
+//		comp_ptr--;
+//		this_ptr--;
+//
+//		if (*this_ptr == 1 || *comp_ptr == 1)
+//		{
+//			*this_ptr = 1;
+//		}
+//		else
+//		{
+//			*this_ptr = 0;
+//		}
+//	}
+//
+//	while (comp_ptr != comp.fibits_.begin())
+//	{
+//		comp_ptr--;
+//		fibits_.push_front(*comp_ptr);
+//	}
+//
+//	Normalize();
+//
+//	return *this;
+//}
 
 Fibo &Fibo::operator&=(const Fibo &comp)
 {
@@ -277,6 +279,13 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 	return *this;
 }
 
+bool Fibo::get(size_t pos) const {
+	if(pos < fibits_.size()) {
+		return fibits_[pos];
+	}
+	return false;
+}
+
 Fibo &Fibo::operator+=(const Fibo &comp)
 {
 	if (comp.fibits_.empty())
@@ -284,28 +293,156 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		return *this;
 	}
 
-	auto comp_ptr = comp.fibits_.end();
-	auto this_ptr = fibits_.end();
-	int it = 0;
+	while(fibits_.size() < comp.fibits_.size()) {
+		fibits_.push_back(false);
+	}
+	for(int i = 0; i < 4; i ++) {
+		fibits_.push_back(false);
+	}
 
-	while (comp_ptr != comp.fibits_.begin())
+
+	std::cout << *this << "\n";
+	size_t ptr = fibits_.size() - 1;
+	int big = 0;
+	int medium = 0;
+	int small = 0;
+	int move = 0;
+
+	while (ptr >= 3)
 	{
-		comp_ptr--;
-		it++;
+		move = 0;
+		move += fibits_[ptr - 3];
+		move += comp.get(ptr - 3);
 
-		if (it <= fibits_.size())
+		if (big >= 1)
 		{
-			this_ptr--;
-			*this_ptr += *comp_ptr;
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+		}
+
+		if(medium >= 1) {
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = true;
+		}
+
+		if(small >= 1) {
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = true;
+		}
+
+
+		if (medium == 2 && small == 0)
+		{
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = false;
+			medium = 0;
+			move++;
+		}
+
+		if (medium == 3 && small == 0)
+		{
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = true;
+			move++;
+		}
+
+		if (medium == 2 && small == 1)
+		{
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = true;
+			medium = 1;
+
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = false;
+			small = 0;
+		}
+
+		if (medium == 1 && small == 2)
+		{
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = false;
+			medium = 0;
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = true;
+			small = 1;
+		}
+
+		big = medium;
+		medium = small;
+		small = move;
+		ptr--;
+	}
+
+	if (big >= 1)
+	{
+		auto &&temp1 = fibits_[ptr];
+		temp1 = true;
+	}
+
+	if(medium >= 1) {
+		auto &&temp2 = fibits_[ptr - 1];
+		temp2 = true;
+	}
+
+	if(small >= 1) {
+		auto &&temp3 = fibits_[ptr - 2];
+		temp3 = true;
+	}
+
+	if (medium == 2)
+	{
+		if (small == 0)
+		{
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = false;
+			medium = 0;
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = true;
+			small = 1;
 		}
 		else
 		{
-			fibits_.push_front(*comp_ptr);
+			auto &&temp1 = fibits_[ptr];
+			temp1 = true;
+			auto &&temp2 = fibits_[ptr - 1];
+			temp2 = true;
+			medium = 1;
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = false;
+			small = 0;
 		}
 	}
 
-	RemoveNonBit();
+	if (small >= 2)
+	{
 
+		auto &&temp2 = fibits_[ptr - 1];
+		temp2 = true;
+		medium = 1;
+		if (small == 2)
+		{
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = false;
+			small = 0;
+		}
+		else
+		{
+			auto &&temp3 = fibits_[ptr - 2];
+			temp3 = true;
+			small = 1;
+		}
+	}
+	std::cout << *this << "\n";
 	Normalize();
 
 	return *this;
@@ -313,131 +450,70 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 
 void Fibo::Normalize()
 {
+	std::cout << *this << "\n";
 	for (int i = 0; i < 3; i++)
 	{
-		fibits_.push_front(0);
+		fibits_.push_back(false);
 	}
-
-	auto third_ptr = fibits_.end();
-	third_ptr--;
-	auto second_ptr = third_ptr;
-	second_ptr--;
-	auto first_ptr = second_ptr;
-	first_ptr--;
-
-	while (first_ptr != fibits_.begin())
+	std::cout << *this << "\n";
+	size_t first_pointing = 2;
+	bool first_val = fibits_[first_pointing];
+	bool second_val = fibits_[first_pointing - 1];
+	bool third_val = fibits_[first_pointing - 2];
+	while (first_pointing < fibits_.size())
 	{
-		if (*third_ptr == 1 && *second_ptr == 1 && *first_ptr == 0)
+		if (third_val && second_val && !first_val)
 		{
-			*first_ptr = 1;
-			*second_ptr = 0;
-			*third_ptr = 0;
+			auto &&first_ptr = fibits_[first_pointing];
+			auto &&second_ptr = fibits_[first_pointing - 1];
+			auto &&third_ptr = fibits_[first_pointing - 2];
+			first_ptr = true;
+			first_val = true;
+			second_ptr = false;
+			second_val = false;
+			third_ptr = false;
+			third_val = false;
 		}
 
-		third_ptr--;
-		second_ptr--;
-		first_ptr--;
+		third_val = second_val;
+		second_val = first_val;
+		first_pointing++;
+		first_val = fibits_[first_pointing];
 	}
-	while (third_ptr != fibits_.end())
+
+	std::cout << *this << "\n";
+
+	first_pointing = fibits_.size() - 1;
+	first_val = fibits_[first_pointing];
+	second_val = fibits_[first_pointing - 1];
+	third_val = fibits_[first_pointing - 2];
+
+	while (first_pointing > 2)
 	{
-		if (*third_ptr == 1 && *second_ptr == 1)
+		if (third_val && second_val)
 		{
-			*first_ptr = 1;
-			*second_ptr = 0;
-			*third_ptr = 0;
+			auto &&first_ptr = fibits_[first_pointing];
+			auto &&second_ptr = fibits_[first_pointing - 1];
+			auto &&third_ptr = fibits_[first_pointing - 2];
+			first_ptr = true;
+			first_val = true;
+			second_ptr = false;
+			second_val = false;
+			third_ptr = false;
+			third_val = false;
 		}
 
-		third_ptr++;
-		second_ptr++;
-		first_ptr++;
+		first_pointing--;
+		first_val = fibits_[first_pointing];
+		second_val = fibits_[first_pointing - 1];
+		third_val = fibits_[first_pointing - 2];
 	}
-
-	first_ptr = fibits_.begin();
-	while (!fibits_.empty() && *first_ptr == 0)
+	std::cout << *this << "\n";
+	first_pointing = fibits_.size() - 1;
+	while (!fibits_.empty() && !fibits_[first_pointing])
 	{
-		fibits_.pop_front();
-		first_ptr = fibits_.begin();
-	}
-}
-
-void Fibo::RemoveNonBit()
-{
-	for (int i = 0; i < 3; i++)
-	{
-		fibits_.push_front(0);
+		fibits_.pop_back();
+		first_pointing--;
 	}
 
-	auto first_ptr = fibits_.begin();
-	auto second_ptr = first_ptr;
-	second_ptr++;
-	auto third_ptr = second_ptr;
-	third_ptr++;
-	auto forth_ptr = third_ptr;
-	forth_ptr++;
-
-	while (forth_ptr != fibits_.end())
-	{
-		if (*second_ptr == 2 && *third_ptr == 0)
-		{
-			*first_ptr = 1;
-			*second_ptr = 0;
-			(*forth_ptr)++;
-		}
-
-		if (*second_ptr == 3 && *third_ptr == 0)
-		{
-			*first_ptr = 1;
-			*second_ptr = 1;
-			(*forth_ptr)++;
-		}
-
-		if (*second_ptr == 2 && *third_ptr == 1)
-		{
-			*first_ptr = 1;
-			*second_ptr = 1;
-			*third_ptr = 0;
-		}
-
-		if (*second_ptr == 1 && *third_ptr == 2)
-		{
-			*first_ptr = 1;
-			*second_ptr = 0;
-			*third_ptr = 1;
-		}
-
-		first_ptr++;
-		second_ptr++;
-		third_ptr++;
-		forth_ptr++;
-	}
-
-	if (*second_ptr == 2)
-	{
-		if (*third_ptr == 0)
-		{
-			*first_ptr = 1;
-			*second_ptr = 0;
-			*third_ptr = 1;
-		}
-		else
-		{
-			*first_ptr = 1;
-			*second_ptr = 1;
-			*third_ptr = 0;
-		}
-	}
-
-	if (*third_ptr >= 2)
-	{
-		*second_ptr = 1;
-
-		if (*third_ptr == 2)
-		{
-			*third_ptr = 0;
-		}
-		else
-		{
-			*third_ptr = 1;
-		}
-	}
 }

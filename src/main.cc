@@ -1,25 +1,24 @@
 #include <iostream>
 #include <cassert>
+#include <vector>
+#include <zconf.h>
 #include "Fibo.h"
 
-void testingADD()
-{
+void testingADD() {
 	Fibo a(5);
 	Fibo b(5);
 	a += b;
 	std::cerr << a;
 }
 
-void testingSTRING_CONSTRUCTOR()
-{
+void testingSTRING_CONSTRUCTOR() {
 	Fibo a("10101");
 	std::cerr << a << endl;
 	Fibo b("001010001");
 	std::cerr << b << endl;
 }
 
-void testingCOPY_CONSTRUCTOR()
-{
+void testingCOPY_CONSTRUCTOR() {
 	Fibo a(7);
 	std::cerr << a << endl;
 	Fibo b(5);
@@ -31,8 +30,7 @@ void testingCOPY_CONSTRUCTOR()
 	std::cerr << c << endl;
 }
 
-void testingASSIGNMENT()
-{
+void testingASSIGNMENT() {
 	Fibo a(7);
 	std::cerr << a << endl;
 	Fibo b(5);
@@ -45,8 +43,7 @@ void testingASSIGNMENT()
 	std::cerr << a << endl;
 }
 
-void testingLSHIFT()
-{
+void testingLSHIFT() {
 	Fibo a(5);
 	std::cerr << a << endl;
 	a <<= 3;
@@ -57,47 +54,46 @@ void testingLSHIFT()
 	b <<= 4;
 	std::cerr << b << endl;
 }
+//
+//void testingXOR()
+//{
+//	Fibo a(5);
+//	std::cerr << a << endl;
+//	Fibo b(7);
+//	std::cerr << b << endl;
+//
+//	a ^= b;
+//	std::cerr << a << endl << endl;
+//
+//	Fibo c(8);
+//	std::cerr << c << endl;
+//	Fibo d(5);
+//	std::cerr << d << endl;
+//
+//	c ^= d;
+//	std::cerr << c;
+//}
+//
+//void testingOR()
+//{
+//	Fibo a(5);
+//	std::cerr << a << endl;
+//	Fibo b(7);
+//	std::cerr << b << endl;
+//
+//	a |= b;
+//	std::cerr << a << endl << endl;
+//
+//	Fibo c(8);
+//	std::cerr << c << endl;
+//	Fibo d(5);
+//	std::cerr << d << endl;
+//
+//	c |= d;
+//	std::cerr << c;
+//}
 
-void testingXOR()
-{
-	Fibo a(5);
-	std::cerr << a << endl;
-	Fibo b(7);
-	std::cerr << b << endl;
-
-	a ^= b;
-	std::cerr << a << endl << endl;
-
-	Fibo c(8);
-	std::cerr << c << endl;
-	Fibo d(5);
-	std::cerr << d << endl;
-
-	c ^= d;
-	std::cerr << c;
-}
-
-void testingOR()
-{
-	Fibo a(5);
-	std::cerr << a << endl;
-	Fibo b(7);
-	std::cerr << b << endl;
-
-	a |= b;
-	std::cerr << a << endl << endl;
-
-	Fibo c(8);
-	std::cerr << c << endl;
-	Fibo d(5);
-	std::cerr << d << endl;
-
-	c |= d;
-	std::cerr << c;
-}
-
-void testingAND()
-{
+void testingAND() {
 	Fibo a(5);
 	std::cerr << a << endl;
 	Fibo b(7);
@@ -115,10 +111,20 @@ void testingAND()
 	std::cerr << c;
 }
 
-int main()
-{
+int main() {
 	Fibo f;
 
+	f = 1;
+
+	std::cout << f << "\n";
+	f += 1;
+	std::cout << f << "\n";
+	f += 1;
+	std::cout << f << "\n";
+	f += 1;
+	std::cout << f << "\n";
+	f += 1;
+	std::cout << f << "\n";
 //	Zero() += Fibo("10"); // SHOULD NOT COMPILE
 //	assert(f == Zero());
 //	assert(Fibo(f) == Zero());

@@ -7,19 +7,20 @@
 
 #include <list>
 #include <string>
+#include <vector>
 
 using namespace std;
 class Fibo
 {
 private:
-	std::list<short> fibits_;
+	std::vector<bool> fibits_;
 
 	void Normalize();
 
-	void RemoveNonBit();
+	bool get(size_t pos) const;
 
 public:
-	explicit Fibo(int ile); //FIXME: It's just for testing purpose
+	Fibo(int ile); //FIXME: It's just for testing purpose
 	Fibo(const Fibo &comp); //FIXME: explicit or implicit?
 	explicit Fibo(const string &s);
 	Fibo();
