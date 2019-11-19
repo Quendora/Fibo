@@ -20,7 +20,8 @@ private:
 	bool get(size_t pos) const;
 
 public:
-	Fibo(int ile); //FIXME: It's just for testing purpose
+
+    Fibo(int ile); //FIXME: It's just for testing purpose
 	Fibo(const Fibo &comp); //FIXME: explicit or implicit?
 	explicit Fibo(const string &s);
 	Fibo();

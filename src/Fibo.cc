@@ -7,6 +7,8 @@
 #include "Fibo.h"
 
 const char ZERO_CHAR = '0';
+const int ZERO = false;
+const int ONE = true;
 
 const Fibo Zero()
 {
@@ -24,13 +26,15 @@ const Fibo One()
 
 Fibo::Fibo() = default;
 
-//TODO CZY TRZEBA SPRAWDZAC CZY STRING JEST POPRAWNY?
+//TODO CZY TRZEBA SPRAWDZAC CZY STRING JEST POPRAWNY? -- TAK
 Fibo::Fibo(const string &s)
 {
 	for (char fibit: s)
 	{
 		fibits_.push_back(fibit - ZERO_CHAR);
 	}
+
+	reverse(fibits_.begin(), fibits_.end());
 
 	Normalize();
 }
@@ -49,7 +53,7 @@ Fibo::Fibo(const Fibo &comp)
 	{
 		fibits_.clear();
 
-		for (short fibit: comp.fibits_)
+		for (auto fibit: comp.fibits_)
 		{
 			fibits_.push_back(fibit);
 		}
@@ -68,14 +72,13 @@ std::string Fibo::ToString() const
 	{
 		out += (ZERO_CHAR + it);
 	}
-	//reverse(out.begin(), out.end());
+	reverse(out.begin(), out.end());
 	return out;
 }
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 {
-	return os
-			<< fibo.ToString(); //FIXME: This is temporary as it may be inefficient
+	return os << fibo.ToString(); //FIXME: This is temporary as it may be inefficient
 }
 
 //TODO CZY DA SIE ZROBIC OPERATOR = ZA POMOCA KONSTRUKTORA KOPIUJACEGO?
@@ -154,89 +157,89 @@ bool Fibo::operator<(const Fibo &comp) const
 
 Fibo &Fibo::operator<<=(int n)
 {
+	reverse(fibits_.begin(), fibits_.end());
+
 	for (int i = 0; i < n; i++)
 	{
-		fibits_.push_back(0);
+		fibits_.push_back(ZERO);
+	}
+
+	reverse(fibits_.begin(), fibits_.end());
+
+	Normalize();
+
+	return *this;
+}
+
+Fibo &Fibo::operator^=(const Fibo &comp)
+{
+	if (comp.fibits_.empty())
+	{
+		return *this;
+	}
+
+	auto comp_ptr = comp.fibits_.begin();
+	auto this_ptr = fibits_.begin();
+
+	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
+	{
+		comp_ptr++;
+		this_ptr++;
+
+		if ((*this_ptr == ONE && *comp_ptr == ZERO) ||
+		(*this_ptr == ZERO && *comp_ptr == ONE))
+		{
+			*this_ptr = ONE;
+		}
+		else
+		{
+			*this_ptr = ZERO;
+		}
+	}
+
+	while (comp_ptr != comp.fibits_.end())
+	{
+		comp_ptr++;
+		fibits_.push_back(*comp_ptr);
 	}
 
 	Normalize();
 
 	return *this;
 }
-//
-//Fibo &Fibo::operator^=(const Fibo &comp)
-//{
-//	if (comp.fibits_.empty())
-//	{
-//		return *this;
-//	}
-//
-//	auto comp_ptr = comp.fibits_.end();
-//	auto this_ptr = fibits_.end();
-//
-//	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
-//	{
-//		comp_ptr--;
-//		this_ptr--;
-//
-//		if ((*this_ptr == 1 && *comp_ptr == 0) ||
-//		(*this_ptr == 0 && *comp_ptr == 1))
-//		{
-//			*this_ptr = 1;
-//		}
-//		else
-//		{
-//			*this_ptr = 0;
-//		}
-//	}
-//
-//	while (comp_ptr != comp.fibits_.begin())
-//	{
-//		comp_ptr--;
-//		fibits_.push_front(*comp_ptr);
-//	}
-//
-//	Normalize();
-//
-//	return *this;
-//}
 
-//
-//Fibo &Fibo::operator|=(const Fibo &comp)
-//{
-//	if (comp.fibits_.empty())
-//	{
-//		return *this;
-//	}
-//
-//	auto comp_ptr = comp.fibits_.end();
-//	auto this_ptr = fibits_.end();
-//
-//	while (comp_ptr != comp.fibits_.begin() && this_ptr != fibits_.begin())
-//	{
-//		comp_ptr--;
-//		this_ptr--;
-//
-//		if (*this_ptr == 1 || *comp_ptr == 1)
-//		{
-//			*this_ptr = 1;
-//		}
-//		else
-//		{
-//			*this_ptr = 0;
-//		}
-//	}
-//
-//	while (comp_ptr != comp.fibits_.begin())
-//	{
-//		comp_ptr--;
-//		fibits_.push_front(*comp_ptr);
-//	}
-//
-//	Normalize();
-//
-//	return *this;
-//}
+
+Fibo &Fibo::operator|=(const Fibo &comp)
+{
+	if (comp.fibits_.empty())
+	{
+		return *this;
+	}
+
+	auto comp_ptr = comp.fibits_.begin();
+	auto this_ptr = fibits_.begin();
+
+	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
+	{
+		comp_ptr++;
+		this_ptr++;
+
+		if (*this_ptr == ONE || *comp_ptr == ONE)
+		{
+			*this_ptr = ONE;
+		}
+	}
+
+	while (comp_ptr != comp.fibits_.end())
+	{
+		comp_ptr++;
+		fibits_.push_back(*comp_ptr);
+	}
+
+	Normalize();
+
+	return *this;
+}
 
 Fibo &Fibo::operator&=(const Fibo &comp)
 {
@@ -247,31 +250,28 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 		return *this;
 	}
 
-	auto comp_ptr = comp.fibits_.end();
-	auto this_ptr = fibits_.end();
-	int it = 0;
-	int minSize = min(comp.length(), this->length());
+	auto comp_ptr = comp.fibits_.begin();
+	auto this_ptr = fibits_.begin();
 
-	while (it < minSize)
+	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		comp_ptr--;
-		this_ptr--;
-		it++;
+		comp_ptr++;
+		this_ptr++;
 
-		if (*this_ptr == 1 && *comp_ptr == 1)
+		if (*this_ptr == ONE && *comp_ptr == ONE)
 		{
-			*this_ptr = 1;
+			*this_ptr = ONE;
 		}
 		else
 		{
-			*this_ptr = 0;
+			*this_ptr = ZERO;
 		}
 	}
 
-	while (this_ptr != fibits_.begin())
+	while (this_ptr != fibits_.end())
 	{
-		this_ptr--;
-		*this_ptr = 0;
+		this_ptr++;
+		*this_ptr = ZERO;
 	}
 
 	Normalize();
@@ -279,10 +279,13 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 	return *this;
 }
 
-bool Fibo::get(size_t pos) const {
-	if(pos < fibits_.size()) {
+bool Fibo::get(size_t pos) const
+{
+	if (pos < fibits_.size())
+	{
 		return fibits_[pos];
 	}
+
 	return false;
 }
 
@@ -293,13 +296,14 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		return *this;
 	}
 
-	while(fibits_.size() < comp.fibits_.size()) {
+	while (fibits_.size() < comp.fibits_.size())
+	{
 		fibits_.push_back(false);
 	}
-	for(int i = 0; i < 4; i ++) {
+	for (int i = 0; i < 4; i++)
+	{
 		fibits_.push_back(false);
 	}
-
 
 	std::cout << *this << "\n";
 	size_t ptr = fibits_.size() - 1;
@@ -320,12 +324,14 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 			temp1 = true;
 		}
 
-		if(medium >= 1) {
+		if (medium >= 1)
+		{
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = true;
 		}
 
-		if(small >= 1) {
+		if (small >= 1)
+		{
 			auto &&temp3 = fibits_[ptr - 2];
 			temp3 = true;
 		}
@@ -387,12 +393,14 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		temp1 = true;
 	}
 
-	if(medium >= 1) {
+	if (medium >= 1)
+	{
 		auto &&temp2 = fibits_[ptr - 1];
 		temp2 = true;
 	}
 
-	if(small >= 1) {
+	if (small >= 1)
+	{
 		auto &&temp3 = fibits_[ptr - 2];
 		temp3 = true;
 	}
@@ -454,6 +462,7 @@ void Fibo::Normalize()
 	for (int i = 0; i < 3; i++)
 	{
 		fibits_.push_back(false);
+
 	}
 	std::cout << *this << "\n";
 	size_t first_pointing = 2;
@@ -515,5 +524,5 @@ void Fibo::Normalize()
 		fibits_.pop_back();
 		first_pointing--;
 	}
-
 }
+

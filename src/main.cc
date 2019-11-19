@@ -54,77 +54,69 @@ void testingLSHIFT() {
 	b <<= 4;
 	std::cerr << b << endl;
 }
-//
-//void testingXOR()
-//{
-//	Fibo a(5);
-//	std::cerr << a << endl;
-//	Fibo b(7);
-//	std::cerr << b << endl;
-//
-//	a ^= b;
-//	std::cerr << a << endl << endl;
-//
-//	Fibo c(8);
-//	std::cerr << c << endl;
-//	Fibo d(5);
-//	std::cerr << d << endl;
-//
-//	c ^= d;
-//	std::cerr << c;
-//}
-//
-//void testingOR()
-//{
-//	Fibo a(5);
-//	std::cerr << a << endl;
-//	Fibo b(7);
-//	std::cerr << b << endl;
-//
-//	a |= b;
-//	std::cerr << a << endl << endl;
-//
-//	Fibo c(8);
-//	std::cerr << c << endl;
-//	Fibo d(5);
-//	std::cerr << d << endl;
-//
-//	c |= d;
-//	std::cerr << c;
-//}
 
-void testingAND() {
+void testingXOR()
+{
 	Fibo a(5);
 	std::cerr << a << endl;
 	Fibo b(7);
 	std::cerr << b << endl;
 
-	a &= b;
+	a ^= b;
 	std::cerr << a << endl << endl;
 
-	Fibo c(7);
+	Fibo c(8);
 	std::cerr << c << endl;
 	Fibo d(5);
 	std::cerr << d << endl;
 
-	c &= d;
+	c ^= d;
 	std::cerr << c;
 }
 
+void testingOR()
+{
+	Fibo a(5);
+	std::cerr << a << endl;
+	Fibo b(7);
+	std::cerr << b << endl;
+
+	a |= b;
+	std::cerr << a << endl << endl;
+
+	Fibo c(8);
+	std::cerr << c << endl;
+	Fibo d(5);
+	std::cerr << d << endl;
+
+	c |= d;
+	std::cerr << c;
+}
+
+void testingAND() {
+	Fibo a("11");
+	std::cerr << "A " <<  a << endl;
+	Fibo b("000000101001010011");
+	std::cerr << "B " << b << endl;
+
+	b &= a;
+	std::cerr << "B " << b << endl << endl;
+}
+
 int main() {
-	Fibo f;
-
-	f = 1;
-
-	std::cout << f << "\n";
-	f += 1;
-	std::cout << f << "\n";
-	f += 1;
-	std::cout << f << "\n";
-	f += 1;
-	std::cout << f << "\n";
-	f += 1;
-	std::cout << f << "\n";
+//	Fibo f;
+//
+//	f = 1;
+//
+//	std::cout << f << "\n";
+//	f += 1;
+//	std::cout << f << "\n";
+//	f += 1;
+//	std::cout << f << "\n";
+//	f += 1;
+//	std::cout << f << "\n";
+//	f += 1;
+//	std::cout << f << "\n";
 //	Zero() += Fibo("10"); // SHOULD NOT COMPILE
 //	assert(f == Zero());
 //	assert(Fibo(f) == Zero());
@@ -142,7 +134,7 @@ int main() {
 //	assert(f1 == f2);
 
 //	testingADD();
-//	testingAND();
+	testingAND();
 //	testingOR();
 //	testingXOR();
 //	testingLSHIFT();
