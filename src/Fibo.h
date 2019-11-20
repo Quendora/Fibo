@@ -30,6 +30,8 @@ public:
 	Fibo(unsigned short n) : Fibo((unsigned long long) n) {};
 	Fibo(int8_t n) : Fibo((long long) n) {};
 	Fibo(uint8_t n) : Fibo((unsigned long long) n) {};
+	Fibo(int64_t n) : Fibo((long long) n) {};
+	Fibo(uint64_t n) : Fibo((unsigned long long) n) {};
 
 	Fibo(const Fibo &comp); //FIXME: explicit or implicit?
 	Fibo(Fibo &&comp);

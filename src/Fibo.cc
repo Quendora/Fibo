@@ -27,11 +27,13 @@ const Fibo One()
 
 Fibo::Fibo() = default;
 
-//TODO CZY TRZEBA SPRAWDZAC CZY STRING JEST POPRAWNY? -- TAK
 Fibo::Fibo(const string &s)
 {
 	for (char fibit: s)
 	{
+		auto boolFibit = fibit - ZERO_CHAR;
+		assert(boolFibit == ZERO || boolFibit == ONE);
+
 		fibits_.push_back(fibit - ZERO_CHAR);
 	}
 
@@ -98,7 +100,6 @@ std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 			<< fibo.ToString(); //FIXME: This is temporary as it may be inefficient
 }
 
-//TODO CZY DA SIE ZROBIC OPERATOR = ZA POMOCA KONSTRUKTORA KOPIUJACEGO?
 Fibo &Fibo::operator=(const Fibo &comp)
 {
 	if (this != &comp)
@@ -365,11 +366,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 
 	while (fibits_.size() < comp.fibits_.size())
 	{
-		fibits_.push_back(false);
+		fibits_.push_back(ZERO);
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		fibits_.push_back(false);
+		fibits_.push_back(ZERO);
 	}
 
 	std::cout << *this << "\n";
