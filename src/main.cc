@@ -104,10 +104,12 @@ void testingAND() {
 }
 
 int main() {
-//	Fibo f;
-//
-//	f = 1;
-//
+	Fibo f("1");
+	Fibo f1 = 2 + f;
+	Fibo f2 = f + 2;
+	bool a = f < 2;
+	bool b = 2 < f;
+
 //	std::cout << f << "\n";
 //	f += 1;
 //	std::cout << f << "\n";

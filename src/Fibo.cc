@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 #include "Fibo.h"
 
 const char ZERO_CHAR = '0';
@@ -39,9 +40,21 @@ Fibo::Fibo(const string &s)
 	Normalize();
 }
 
-Fibo::Fibo(int ile)
+Fibo::Fibo(long long n)
 {
-	for (int i = 0; i < ile; i++)
+	if (n >= 0)
+	{
+		*this = Fibo((unsigned long long) n);
+	}
+	else
+	{
+		assert(n >= 0);
+	}
+}
+
+Fibo::Fibo(unsigned long long n)
+{
+	for (int i = 0; i < n; i++)
 	{
 		fibits_.push_back((i + 1) % 2);
 	}
@@ -59,6 +72,8 @@ Fibo::Fibo(const Fibo &comp)
 		}
 	}
 }
+
+Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_)) {}
 
 size_t Fibo::length() const
 {
@@ -97,6 +112,11 @@ Fibo &Fibo::operator=(const Fibo &comp)
 	return *this;
 }
 
+bool Fibo::operator!=(const Fibo &comp) const
+{
+	return !(*this == comp);
+}
+
 bool Fibo::operator==(const Fibo &comp) const
 {
 	if (length() != comp.length())
@@ -119,6 +139,26 @@ bool Fibo::operator==(const Fibo &comp) const
 	}
 
 	return true;
+}
+
+bool Fibo::operator>=(const Fibo &comp) const
+{
+	return (*this == comp) || !(*this < comp);
+}
+
+bool Fibo::operator<=(const Fibo &comp) const
+{
+	return (*this == comp) || (*this < comp);
+}
+
+bool Fibo::operator>(const Fibo &comp) const
+{
+	return !(*this == comp) && !(*this < comp);
+}
+
+bool operator<(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) < comp2;
 }
 
 bool Fibo::operator<(const Fibo &comp) const
@@ -155,6 +195,11 @@ bool Fibo::operator<(const Fibo &comp) const
 	}
 }
 
+Fibo operator<<(const Fibo &comp, int n)
+{
+	return Fibo(comp) <<= n;
+}
+
 Fibo &Fibo::operator<<=(int n)
 {
 	reverse(fibits_.begin(), fibits_.end());
@@ -169,6 +214,11 @@ Fibo &Fibo::operator<<=(int n)
 	Normalize();
 
 	return *this;
+}
+
+Fibo operator^(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) ^= Fibo(comp2);
 }
 
 Fibo &Fibo::operator^=(const Fibo &comp)
@@ -208,6 +258,11 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 	return *this;
 }
 
+Fibo operator|(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) |= Fibo(comp2);
+}
+
 
 Fibo &Fibo::operator|=(const Fibo &comp)
 {
@@ -239,6 +294,11 @@ Fibo &Fibo::operator|=(const Fibo &comp)
 	Normalize();
 
 	return *this;
+}
+
+Fibo operator&(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) &= Fibo(comp2);
 }
 
 Fibo &Fibo::operator&=(const Fibo &comp)
@@ -287,6 +347,11 @@ bool Fibo::get(size_t pos) const
 	}
 
 	return false;
+}
+
+Fibo operator+(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) += Fibo(comp2);
 }
 
 Fibo &Fibo::operator+=(const Fibo &comp)
