@@ -2,14 +2,15 @@
 // Created by Karolina Zygmunt and Krystian Król on 04.11.19.
 //
 
-#include <iostream>
 #include <algorithm>
 #include <cassert>
 #include "Fibo.h"
 
 const char ZERO_CHAR = '0';
-const int ZERO = false;
-const int ONE = true;
+const bool ZERO_BIT = false;
+const bool ONE_BIT = true;
+const int ZERO_NUMBER = 0;
+const int ONE_NUMBER = 1;
 
 const Fibo Zero()
 {
@@ -32,7 +33,7 @@ Fibo::Fibo(const string &s)
 	for (char fibit: s)
 	{
 		auto boolFibit = fibit - ZERO_CHAR;
-		assert(boolFibit == ZERO || boolFibit == ONE);
+		assert(boolFibit == ZERO_NUMBER || boolFibit == ONE_NUMBER);
 
 		fibits_.push_back(fibit - ZERO_CHAR);
 	}
@@ -54,27 +55,33 @@ Fibo::Fibo(long long n)
 	}
 }
 
-unsigned long long Fibo::set(unsigned long long expected, unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/) {
+unsigned long long
+Fibo::set(unsigned long long expected, unsigned long long current /*= 1 */,
+		unsigned long long prev /*= 1*/)
+{
 
-  size_t position = fibits_.size();
-  fibits_.push_back(false);
+	size_t position = fibits_.size();
+	fibits_.push_back(false);
 
-  if(expected - current >= prev) {
-    expected = set(expected, current + prev, current);
-  }
+	if (expected - current >= prev)
+	{
+		expected = set(expected, current + prev, current);
+	}
 
-  if(expected >= current) {
-    auto &&bit = fibits_[position];
-    bit = true;
-    expected -= current;
-  }
-  return expected;
+	if (expected >= current)
+	{
+		auto &&bit = fibits_[position];
+		bit = true;
+		expected -= current;
+	}
+	return expected;
 }
 
 Fibo::Fibo(unsigned long long n)
 {
-	if (n > 0) {
-	  set(n);
+	if (n > 0)
+	{
+		set(n);
 	}
 }
 
@@ -106,7 +113,8 @@ std::string Fibo::ToString() const
 	{
 		out += (ZERO_CHAR + it);
 	}
-	if(fibits_.empty()) {
+	if (fibits_.empty())
+	{
 		out = "0";
 	}
 	reverse(out.begin(), out.end());
@@ -228,7 +236,7 @@ Fibo &Fibo::operator<<=(int n)
 
 	for (int i = 0; i < n; i++)
 	{
-		fibits_.push_back(ZERO);
+		fibits_.push_back(ZERO_BIT);
 	}
 
 	reverse(fibits_.begin(), fibits_.end());
@@ -258,14 +266,14 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 		comp_ptr++;
 		this_ptr++;
 
-		if ((*this_ptr == ONE && *comp_ptr == ZERO) ||
-				(*this_ptr == ZERO && *comp_ptr == ONE))
+		if ((*this_ptr == ONE_BIT && *comp_ptr == ZERO_BIT) ||
+				(*this_ptr == ZERO_BIT && *comp_ptr == ONE_BIT))
 		{
-			*this_ptr = ONE;
+			*this_ptr = ONE_BIT;
 		}
 		else
 		{
-			*this_ptr = ZERO;
+			*this_ptr = ZERO_BIT;
 		}
 	}
 
@@ -301,9 +309,9 @@ Fibo &Fibo::operator|=(const Fibo &comp)
 		comp_ptr++;
 		this_ptr++;
 
-		if (*this_ptr == ONE || *comp_ptr == ONE)
+		if (*this_ptr == ONE_BIT || *comp_ptr == ONE_BIT)
 		{
-			*this_ptr = ONE;
+			*this_ptr = ONE_BIT;
 		}
 	}
 
@@ -340,20 +348,20 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 		comp_ptr++;
 		this_ptr++;
 
-		if (*this_ptr == ONE && *comp_ptr == ONE)
+		if (*this_ptr == ONE_BIT && *comp_ptr == ONE_BIT)
 		{
-			*this_ptr = ONE;
+			*this_ptr = ONE_BIT;
 		}
 		else
 		{
-			*this_ptr = ZERO;
+			*this_ptr = ZERO_BIT;
 		}
 	}
 
 	while (this_ptr != fibits_.end())
 	{
 		this_ptr++;
-		*this_ptr = ZERO;
+		*this_ptr = ZERO_BIT;
 	}
 
 	Normalize();
@@ -385,11 +393,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 
 	while (fibits_.size() < comp.fibits_.size())
 	{
-		fibits_.push_back(ZERO);
+		fibits_.push_back(ZERO_BIT);
 	}
 	for (int i = 0; i < 4; i++)
 	{
-		fibits_.push_back(ZERO);
+		fibits_.push_back(ZERO_BIT);
 	}
 
 	size_t ptr = fibits_.size() - 1;
@@ -401,7 +409,8 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	while (ptr >= 2)
 	{
 		move = 0;
-		if(ptr >= 3) {
+		if (ptr >= 3)
+		{
 			move += fibits_[ptr - 3];
 			move += comp.get(ptr - 3);
 		}
@@ -468,7 +477,8 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 			small = 1;
 		}
 
-		if(ptr >= 3) {
+		if (ptr >= 3)
+		{
 			big = medium;
 			medium = small;
 			small = move;
@@ -505,7 +515,8 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		}
 	}
 
-	if(medium == 1 && small == 2) {
+	if (medium == 1 && small == 2)
+	{
 		auto &&temp1 = fibits_[ptr];
 		temp1 = true;
 		auto &&temp2 = fibits_[ptr - 1];
@@ -515,7 +526,6 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		temp3 = true;
 		small = 1;
 	}
-
 
 	Normalize();
 
