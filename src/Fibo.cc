@@ -300,8 +300,6 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		fibits_.push_back(false);
 	}
 
-
-	std::cout << *this << "\n";
 	size_t ptr = fibits_.size() - 1;
 	int big = 0;
 	int medium = 0;
@@ -442,7 +440,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 			small = 1;
 		}
 	}
-	std::cout << *this << "\n";
+
 	Normalize();
 
 	return *this;
@@ -450,12 +448,10 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 
 void Fibo::Normalize()
 {
-	std::cout << *this << "\n";
 	for (int i = 0; i < 3; i++)
 	{
 		fibits_.push_back(false);
 	}
-	std::cout << *this << "\n";
 	size_t first_pointing = 2;
 	bool first_val = fibits_[first_pointing];
 	bool second_val = fibits_[first_pointing - 1];
@@ -480,8 +476,6 @@ void Fibo::Normalize()
 		first_pointing++;
 		first_val = fibits_[first_pointing];
 	}
-
-	std::cout << *this << "\n";
 
 	first_pointing = fibits_.size() - 1;
 	first_val = fibits_[first_pointing];
@@ -508,7 +502,7 @@ void Fibo::Normalize()
 		second_val = fibits_[first_pointing - 1];
 		third_val = fibits_[first_pointing - 2];
 	}
-	std::cout << *this << "\n";
+
 	first_pointing = fibits_.size() - 1;
 	while (!fibits_.empty() && !fibits_[first_pointing])
 	{

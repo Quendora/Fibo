@@ -115,16 +115,42 @@ int main() {
   Fibo f;
 
   f = 1;
+  Fibo g = 1;
+  std::cout << g << ".\n";
+  std::cout << f << "\n";
+  f += 1;
+  g+=g;
+  std::cout << g << ".\n";
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  g+=g;
+  std::cout << g << ".\n";
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  g+=g;
+  std::cout << g << ".\n";
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
+  f += 1;
+  std::cout << f << "\n";
 
-  std::cout << f << "\n";
-  f += 1;
-  std::cout << f << "\n";
-  f += 1;
-  std::cout << f << "\n";
-  f += 1;
-  std::cout << f << "\n";
-  f += 1;
-  std::cout << f << "\n";
+  bool czy;
+  czy = (f==5);
+  std::cout << czy << "\n";
+
 //	Zero() += Fibo("10"); // SHOULD NOT COMPILE
 //	assert(f == Zero());
 //	assert(Fibo(f) == Zero());
