@@ -105,37 +105,40 @@ void testingAND() {
 
 int main() {
 	Fibo f;
-	Fibo f0 = Zero();
-	Fibo f1 = One();
+//	Fibo f0 = Zero();
+//	Fibo f1 = One();
+//
+//	f0 = 0;
+//	f0 += 1;
+//	std::cout << f0 << " <- tyle\n";
+//	Fibo fibo = UINT64_MAX;
 
-	f0 = 0;
-	f0 += 1;
-	std::cout << f0 << " <- tyle\n";
-	Fibo fibo = UINT64_MAX;
-
-	for(int i = 0; i < 1000; i++) {
-		for(int j = 0; j < 1000; j++) {
-			bool tak;
-			f0 = i;
-			f0 += j;
-			tak = (f0 == Fibo(i + j));
-			if (!tak) {
-				cout << f0 << " " << tak << " " << i << " " << j <<  "\n";
-				break;
-			}
-		}
-	}
+//	for(int i = 0; i < 1000; i++) {
+//		for(int j = 0; j < 1000; j++) {
+//			bool tak;
+//			f0 = i;
+//			f0 += j;
+//			tak = (f0 == Fibo(i + j));
+//			if (!tak) {
+//				cout << f0 << " " << tak << " " << i << " " << j <<  "\n";
+//				break;
+//			}
+//		}
+//	}
 
 	assert(f == Zero());
 	assert(Fibo(f) == Zero());
 	assert(Zero() < One());
 	assert(Fibo("11") == Fibo("100"));
 	assert((Fibo("1001") + Fibo("10")) == Fibo("1011"));
+	cout << Fibo("1001").ToString() << endl;
+	cout << Fibo("1100").ToString() << endl;
 	assert((Fibo("1001") & Fibo("1100")) == Zero()); // 1100 == 10000
 	assert((Fibo("1100") | Fibo("11")) == Fibo("10100")); // 1100 == 10000, 11 == 100
 	assert((Fibo("1001") ^ Fibo("1010")) == Fibo("11"));
 	assert((Fibo("101") << 3) == Fibo("101000"));
 
+	cout << "KONIEC" << endl;
 //	std::cout << f << "\n";
 //	f += 1;
 //	std::cout << f << "\n";

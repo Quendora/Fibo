@@ -6,7 +6,7 @@
 #include <cassert>
 #include "Fibo.h"
 
-const char ZERO_CHAR = '0';
+const char ZERO_ASCII = 48;
 const bool ZERO_BIT = false;
 const bool ONE_BIT = true;
 const int ZERO_NUMBER = 0;
@@ -32,10 +32,10 @@ Fibo::Fibo(const string &s)
 {
 	for (char fibit: s)
 	{
-		auto boolFibit = fibit - ZERO_CHAR;
+		auto boolFibit = fibit - ZERO_ASCII;
 		assert(boolFibit == ZERO_NUMBER || boolFibit == ONE_NUMBER);
 
-		fibits_.push_back(fibit - ZERO_CHAR);
+		fibits_.push_back(fibit - ZERO_ASCII);
 	}
 
 	reverse(fibits_.begin(), fibits_.end());
@@ -111,7 +111,7 @@ std::string Fibo::ToString() const
 	string out;
 	for (auto it : fibits_)
 	{
-		out += (ZERO_CHAR + it);
+		out += (ZERO_ASCII + it);
 	}
 	if (fibits_.empty())
 	{
@@ -263,9 +263,6 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		comp_ptr++;
-		this_ptr++;
-
 		if ((*this_ptr == ONE_BIT && *comp_ptr == ZERO_BIT) ||
 				(*this_ptr == ZERO_BIT && *comp_ptr == ONE_BIT))
 		{
@@ -275,12 +272,15 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 		{
 			*this_ptr = ZERO_BIT;
 		}
+
+		comp_ptr++;
+		this_ptr++;
 	}
 
 	while (comp_ptr != comp.fibits_.end())
 	{
-		comp_ptr++;
 		fibits_.push_back(*comp_ptr);
+		comp_ptr++;
 	}
 
 	Normalize();
@@ -306,19 +306,19 @@ Fibo &Fibo::operator|=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		comp_ptr++;
-		this_ptr++;
-
 		if (*this_ptr == ONE_BIT || *comp_ptr == ONE_BIT)
 		{
 			*this_ptr = ONE_BIT;
 		}
+
+		comp_ptr++;
+		this_ptr++;
 	}
 
 	while (comp_ptr != comp.fibits_.end())
 	{
-		comp_ptr++;
 		fibits_.push_back(*comp_ptr);
+		comp_ptr++;
 	}
 
 	Normalize();
@@ -345,9 +345,6 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		comp_ptr++;
-		this_ptr++;
-
 		if (*this_ptr == ONE_BIT && *comp_ptr == ONE_BIT)
 		{
 			*this_ptr = ONE_BIT;
@@ -356,12 +353,15 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 		{
 			*this_ptr = ZERO_BIT;
 		}
+
+		comp_ptr++;
+		this_ptr++;
 	}
 
 	while (this_ptr != fibits_.end())
 	{
-		this_ptr++;
 		*this_ptr = ZERO_BIT;
+		this_ptr++;
 	}
 
 	Normalize();
