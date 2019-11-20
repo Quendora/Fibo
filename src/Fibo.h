@@ -10,6 +10,7 @@
 #include <vector>
 
 using namespace std;
+
 class Fibo
 {
 private:
@@ -20,9 +21,27 @@ private:
 	bool get(size_t pos) const;
 
 public:
-    Fibo(int ile); //FIXME: It's just for testing purpose
+
+	Fibo(long long n);
+	Fibo(unsigned long long n); //FIXME: It's just for testing purpose
+	Fibo(int n) : Fibo((long long) n) {};
+	Fibo(unsigned int n) : Fibo((unsigned long long) n) {};
+	Fibo(short n) : Fibo((long long) n) {};
+	Fibo(unsigned short n) : Fibo((unsigned long long) n) {};
+	Fibo(int8_t n) : Fibo((long long) n) {};
+	Fibo(uint8_t n) : Fibo((unsigned long long) n) {};
+	Fibo(int64_t n) : Fibo((long long) n) {};
+	Fibo(uint64_t n) : Fibo((unsigned long long) n) {};
+
 	Fibo(const Fibo &comp); //FIXME: explicit or implicit?
+	Fibo(Fibo &&comp);
+
+	Fibo(const char a) = delete;
+	Fibo(const bool b) = delete;
+
 	explicit Fibo(const string &s);
+	explicit Fibo(const char* s) : Fibo((string) s) {};
+
 	Fibo();
 
 	std::string ToString() const;
@@ -31,9 +50,17 @@ public:
 
 	Fibo &operator=(const Fibo &comp);
 
-	bool operator==(const Fibo &comp) const;
+	bool operator!=(const Fibo &comp);
 
-	bool operator<(const Fibo &comp) const;
+	bool operator==(const Fibo &comp) ;
+
+	bool operator>=(const Fibo &comp);
+
+	bool operator>(const Fibo &comp);
+
+	bool operator<=(const Fibo &comp);
+
+	bool operator<(const Fibo &comp);
 
 	Fibo &operator<<=(int n);
 
@@ -44,11 +71,26 @@ public:
 	Fibo &operator&=(const Fibo &comp);
 
 	Fibo &operator+=(const Fibo &comp);
+
 };
 
 const Fibo Zero();
 
 const Fibo One();
+
+bool operator<(const Fibo &comp1, const Fibo &comp2);
+
+bool operator>(const Fibo &comp1, const Fibo &comp2);
+
+Fibo operator+(const Fibo &comp1, const Fibo &comp2);
+
+Fibo operator&(const Fibo &comp1, const Fibo &comp2);
+
+Fibo operator|(const Fibo &comp1, const Fibo &comp2);
+
+Fibo operator^(const Fibo &comp1, const Fibo &comp2);
+
+Fibo operator<<(const Fibo &comp, int n);
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo);
 
