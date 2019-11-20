@@ -48,17 +48,17 @@ public:
 
 	Fibo &operator=(const Fibo &comp);
 
-	bool operator!=(const Fibo &comp) const;
+	bool operator!=(const Fibo &comp);
 
-	bool operator==(const Fibo &comp) const;
+	bool operator==(const Fibo &comp) ;
 
-	bool operator>=(const Fibo &comp) const;
+	bool operator>=(const Fibo &comp);
 
-	bool operator>(const Fibo &comp) const;
+	bool operator>(const Fibo &comp);
 
-	bool operator<=(const Fibo &comp) const;
+	bool operator<=(const Fibo &comp);
 
-	bool operator<(const Fibo &comp) const;
+	bool operator<(const Fibo &comp);
 
 	Fibo &operator<<=(int n);
 

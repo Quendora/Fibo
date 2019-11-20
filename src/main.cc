@@ -136,7 +136,7 @@ int main() {
 //	assert(f1 == f2);
 
 //	testingADD();
-	testingAND();
+//	testingAND();
 //	testingOR();
 //	testingXOR();
 //	testingLSHIFT();

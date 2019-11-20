@@ -73,7 +73,8 @@ Fibo::Fibo(const Fibo &comp)
 	}
 }
 
-Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_)) {}
+Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_))
+{}
 
 size_t Fibo::length() const
 {
@@ -93,7 +94,8 @@ std::string Fibo::ToString() const
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 {
-	return os << fibo.ToString(); //FIXME: This is temporary as it may be inefficient
+	return os
+			<< fibo.ToString(); //FIXME: This is temporary as it may be inefficient
 }
 
 //TODO CZY DA SIE ZROBIC OPERATOR = ZA POMOCA KONSTRUKTORA KOPIUJACEGO?
@@ -112,12 +114,12 @@ Fibo &Fibo::operator=(const Fibo &comp)
 	return *this;
 }
 
-bool Fibo::operator!=(const Fibo &comp) const
+bool Fibo::operator!=(const Fibo &comp)
 {
 	return !(*this == comp);
 }
 
-bool Fibo::operator==(const Fibo &comp) const
+bool Fibo::operator==(const Fibo &comp)
 {
 	if (length() != comp.length())
 	{
@@ -141,17 +143,17 @@ bool Fibo::operator==(const Fibo &comp) const
 	return true;
 }
 
-bool Fibo::operator>=(const Fibo &comp) const
+bool Fibo::operator>=(const Fibo &comp)
 {
 	return (*this == comp) || !(*this < comp);
 }
 
-bool Fibo::operator<=(const Fibo &comp) const
+bool Fibo::operator<=(const Fibo &comp)
 {
 	return (*this == comp) || (*this < comp);
 }
 
-bool Fibo::operator>(const Fibo &comp) const
+bool Fibo::operator>(const Fibo &comp)
 {
 	return !(*this == comp) && !(*this < comp);
 }
@@ -161,7 +163,7 @@ bool operator<(const Fibo &comp1, const Fibo &comp2)
 	return Fibo(comp1) < comp2;
 }
 
-bool Fibo::operator<(const Fibo &comp) const
+bool Fibo::operator<(const Fibo &comp)
 {
 	if (length() < comp.length())
 	{
@@ -237,7 +239,7 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 		this_ptr++;
 
 		if ((*this_ptr == ONE && *comp_ptr == ZERO) ||
-		(*this_ptr == ZERO && *comp_ptr == ONE))
+				(*this_ptr == ZERO && *comp_ptr == ONE))
 		{
 			*this_ptr = ONE;
 		}
