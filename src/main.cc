@@ -105,6 +105,15 @@ void testingAND() {
 
 int main() {
 	Fibo f;
+	Fibo f0 = Zero();
+	Fibo f1 = One();
+
+	for(int i = 0; i < 1000; i++) {
+		bool tak;
+		tak = (f0 == Fibo(i));
+		cout << f0 << " " << tak << "\n";
+		f0 += One();
+	}
 
 	assert(f == Zero());
 	assert(Fibo(f) == Zero());

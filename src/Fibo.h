@@ -20,6 +20,9 @@ private:
 
 	bool get(size_t pos) const;
 
+  unsigned long long set(unsigned long long expected, unsigned long long current = 1, unsigned long long prev = 1);
+
+
 public:
 
 	Fibo(long long n);

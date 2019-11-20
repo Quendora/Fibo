@@ -54,11 +54,27 @@ Fibo::Fibo(long long n)
 	}
 }
 
+unsigned long long Fibo::set(unsigned long long expected, unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/) {
+
+  size_t position = fibits_.size();
+  fibits_.push_back(false);
+
+  if(expected - current >= prev) {
+    expected = set(expected, current + prev, current);
+  }
+
+  if(expected >= current) {
+    auto &&bit = fibits_[position];
+    bit = true;
+    expected -= current;
+  }
+  return expected;
+}
+
 Fibo::Fibo(unsigned long long n)
 {
-	for (int i = 0; i < n; i++)
-	{
-		fibits_.push_back((i + 1) % 2);
+	if (n > 0) {
+	  set(n);
 	}
 }
 
