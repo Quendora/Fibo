@@ -108,11 +108,22 @@ int main() {
 	Fibo f0 = Zero();
 	Fibo f1 = One();
 
+	f0 = 0;
+	f0 += 1;
+	std::cout << f0 << " <- tyle\n";
+	Fibo fibo = UINT64_MAX;
+
 	for(int i = 0; i < 1000; i++) {
-		bool tak;
-		tak = (f0 == Fibo(i));
-		cout << f0 << " " << tak << "\n";
-		f0 += One();
+		for(int j = 0; j < 1000; j++) {
+			bool tak;
+			f0 = i;
+			f0 += j;
+			tak = (f0 == Fibo(i + j));
+			if (!tak) {
+				cout << f0 << " " << tak << " " << i << " " << j <<  "\n";
+				break;
+			}
+		}
 	}
 
 	assert(f == Zero());
