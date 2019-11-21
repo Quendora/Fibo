@@ -6,9 +6,11 @@
 
 void testingADD() {
 	Fibo a(5);
-	Fibo b(5);
+	std::cerr << a << endl;
+	Fibo b(6);
+	std::cerr << b << endl;
 	a += b;
-	std::cerr << a;
+	std::cerr << a << endl;
 }
 
 void testingSTRING_CONSTRUCTOR() {
@@ -40,7 +42,7 @@ void testingASSIGNMENT() {
 	a = b;
 	std::cerr << a << endl;
 	b = c;
-	std::cerr << a << endl;
+	std::cerr << b << endl;
 }
 
 void testingLSHIFT() {
@@ -53,6 +55,10 @@ void testingLSHIFT() {
 	std::cerr << b << endl;
 	b <<= 4;
 	std::cerr << b << endl;
+
+	Fibo c = b << 3;
+
+	std::cerr << c << endl;
 }
 
 void testingXOR()
@@ -90,17 +96,23 @@ void testingOR()
 	std::cerr << d << endl;
 
 	c |= d;
+	std::cerr << c << endl;
+
+	c |= One();
 	std::cerr << c;
 }
 
 void testingAND() {
-	Fibo a("11");
+	Fibo a("101");
 	std::cerr << "A " <<  a << endl;
-	Fibo b("000000101001010011");
+	Fibo b("100");
 	std::cerr << "B " << b << endl;
 
-	b &= a;
-	std::cerr << "B " << b << endl << endl;
+	a &= b;
+	std::cerr << "B " << a << endl << endl;
+
+	Fibo c = One() & b;
+	assert(c != One());
 }
 
 int main() {
@@ -128,26 +140,26 @@ int main() {
 //			}
 //		}
 //	}
-	Fibo f12 = Zero();
-	bool tak = (Zero() <= 3);
+//	Fibo f12 = Zero();
+//	bool tak = (Zero() <= 3);
+//
+//	assert(f == Zero());
+//	assert(Fibo(f) == Zero());
+//	assert(Zero() <= One());
+//	assert(One() >= Zero());
+//	std::cout << "HERE\n";
+//	assert(Fibo("11") == Fibo("100"));
+//	assert((Fibo("1001") + Fibo("10")) == Fibo("1011"));
+//	cout << Fibo("1001").ToString() << endl;
+//	cout << Fibo("1100").ToString() << endl;
+//	assert((Fibo("1001") & Fibo("1100")) == Zero()); // 1100 == 10000
+//	assert((Fibo("1100") | Fibo("11")) == Fibo("10100")); // 1100 == 10000, 11 == 100
+//	assert((Fibo("1001") ^ Fibo("1010")) == Fibo("11"));
+//	assert((Fibo("101") << 3) == Fibo("101000"));
+//
+//	Zero() != 3;
 
-	assert(f == Zero());
-	assert(Fibo(f) == Zero());
-	assert(Zero() <= One());
-	assert(One() >= Zero());
-	std::cout << "HERE\n";
-	assert(Fibo("11") == Fibo("100"));
-	assert((Fibo("1001") + Fibo("10")) == Fibo("1011"));
-	cout << Fibo("1001").ToString() << endl;
-	cout << Fibo("1100").ToString() << endl;
-	assert((Fibo("1001") & Fibo("1100")) == Zero()); // 1100 == 10000
-	assert((Fibo("1100") | Fibo("11")) == Fibo("10100")); // 1100 == 10000, 11 == 100
-	assert((Fibo("1001") ^ Fibo("1010")) == Fibo("11"));
-	assert((Fibo("101") << 3) == Fibo("101000"));
-
-	Zero() != 3;
-
-	cout << "KONIEC" << endl;
+//	cout << "KONIEC" << endl;
 //	std::cout << f << "\n";
 //	f += 1;
 //	std::cout << f << "\n";
@@ -174,11 +186,11 @@ int main() {
 //	assert(f1 == f2);
 
 //	testingADD();
-//	testingAND();
-//	testingOR();
-//	testingXOR();
-//	testingLSHIFT();
-//	testingASSIGNMENT();
+//	testingAND(); // •ᴗ•
+//	testingOR(); // •ᴗ•
+//	testingXOR(); // •ᴗ•
+	testingLSHIFT(); // ¯\_(ツ)_/¯
+//	testingASSIGNMENT(); // •ᴗ•
 //	testingCOPY_CONSTRUCTOR();
 //	testingSTRING_CONSTRUCTOR();
 }

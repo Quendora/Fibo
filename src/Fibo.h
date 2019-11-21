@@ -66,6 +66,11 @@ public:
 
 	Fibo &operator<<=(int n);
 
+//	Fibo &operator<<=(bool n) = delete;
+//	Fibo &operator<<=(char n) = delete;
+//	Fibo &operator<<=(double n) = delete;
+//	Fibo &operator<<=(float n) = delete;
+
 	Fibo &operator^=(const Fibo &comp);
 
 	Fibo &operator|=(const Fibo &comp);

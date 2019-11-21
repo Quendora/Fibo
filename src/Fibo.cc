@@ -264,6 +264,8 @@ Fibo operator<<(const Fibo &comp, int n)
 
 Fibo &Fibo::operator<<=(int n)
 {
+	assert(n >= 0);
+
 	reverse(fibits_.begin(), fibits_.end());
 
 	for (int i = 0; i < n; i++)
