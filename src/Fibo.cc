@@ -74,6 +74,7 @@ Fibo::set(unsigned long long expected, unsigned long long current /*= 1 */,
 		bit = true;
 		expected -= current;
 	}
+
 	return expected;
 }
 
@@ -110,22 +111,25 @@ size_t Fibo::length() const
 std::string Fibo::ToString() const
 {
 	string out;
+
 	for (auto it : fibits_)
 	{
 		out += (ZERO_ASCII + it);
 	}
+
 	if (fibits_.empty())
 	{
 		out = "0";
 	}
+
 	reverse(out.begin(), out.end());
+
 	return out;
 }
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 {
-	return os
-			<< fibo.ToString();
+	return os << fibo.ToString();
 }
 
 Fibo &Fibo::operator=(const Fibo &comp)
@@ -279,8 +283,7 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-      *this_ptr = (*this_ptr == ONE_BIT && *comp_ptr == ZERO_BIT) ||
-          (*this_ptr == ZERO_BIT && *comp_ptr == ONE_BIT);
+      *this_ptr = (*this_ptr ^ *comp_ptr);
 
 		comp_ptr++;
 		this_ptr++;
@@ -315,11 +318,8 @@ Fibo &Fibo::operator|=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		if (*this_ptr == ONE_BIT || *comp_ptr == ONE_BIT)
-		{
-			*this_ptr = ONE_BIT;
-		}
 
+		*this_ptr = (*this_ptr | *comp_ptr);
 		comp_ptr++;
 		this_ptr++;
 	}
@@ -354,7 +354,7 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-      *this_ptr = *this_ptr == ONE_BIT && *comp_ptr == ONE_BIT;
+      *this_ptr = (*this_ptr & *comp_ptr);
 
 		comp_ptr++;
 		this_ptr++;
