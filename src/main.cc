@@ -105,8 +105,11 @@ void testingAND() {
 
 int main() {
 	Fibo f;
-//	Fibo f0 = Zero();
-//	Fibo f1 = One();
+	Fibo f0 = Zero();
+    Fibo f1, f2;
+    bool b;
+    size_t a = 1;
+    f0 += a;
 //
 //	f0 = 0;
 //	f0 += 1;
@@ -128,7 +131,9 @@ int main() {
 
 	assert(f == Zero());
 	assert(Fibo(f) == Zero());
-	assert(Zero() < One());
+	assert(Zero() <= One());
+	assert(One() >= Zero());
+	std::cout << "HERE\n";
 	assert(Fibo("11") == Fibo("100"));
 	assert((Fibo("1001") + Fibo("10")) == Fibo("1011"));
 	cout << Fibo("1001").ToString() << endl;

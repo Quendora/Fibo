@@ -99,7 +99,8 @@ Fibo::Fibo(const Fibo &comp)
 }
 
 Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_))
-{}
+{
+}
 
 size_t Fibo::length() const
 {
@@ -124,7 +125,7 @@ std::string Fibo::ToString() const
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo)
 {
 	return os
-			<< fibo.ToString(); //FIXME: This is temporary as it may be inefficient
+			<< fibo.ToString();
 }
 
 Fibo &Fibo::operator=(const Fibo &comp)
@@ -189,6 +190,21 @@ bool Fibo::operator>(const Fibo &comp)
 bool operator<(const Fibo &comp1, const Fibo &comp2)
 {
 	return Fibo(comp1) < comp2;
+}
+
+bool operator>(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) > comp2;
+}
+
+bool operator<=(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) <= comp2;
+}
+
+bool operator>=(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) >= comp2;
 }
 
 bool Fibo::operator<(const Fibo &comp)
@@ -263,15 +279,8 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		if ((*this_ptr == ONE_BIT && *comp_ptr == ZERO_BIT) ||
-				(*this_ptr == ZERO_BIT && *comp_ptr == ONE_BIT))
-		{
-			*this_ptr = ONE_BIT;
-		}
-		else
-		{
-			*this_ptr = ZERO_BIT;
-		}
+      *this_ptr = (*this_ptr == ONE_BIT && *comp_ptr == ZERO_BIT) ||
+          (*this_ptr == ZERO_BIT && *comp_ptr == ONE_BIT);
 
 		comp_ptr++;
 		this_ptr++;
@@ -345,14 +354,7 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-		if (*this_ptr == ONE_BIT && *comp_ptr == ONE_BIT)
-		{
-			*this_ptr = ONE_BIT;
-		}
-		else
-		{
-			*this_ptr = ZERO_BIT;
-		}
+      *this_ptr = *this_ptr == ONE_BIT && *comp_ptr == ONE_BIT;
 
 		comp_ptr++;
 		this_ptr++;
@@ -521,10 +523,8 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		temp1 = true;
 		auto &&temp2 = fibits_[ptr - 1];
 		temp2 = false;
-		medium = 0;
 		auto &&temp3 = fibits_[ptr - 2];
 		temp3 = true;
-		small = 1;
 	}
 
 	Normalize();
@@ -555,7 +555,6 @@ void Fibo::Normalize()
 			second_ptr = false;
 			second_val = false;
 			third_ptr = false;
-			third_val = false;
 		}
 
 		third_val = second_val;
@@ -565,8 +564,6 @@ void Fibo::Normalize()
 	}
 
 	first_pointing = fibits_.size();
-	second_val = fibits_[first_pointing - 1];
-	third_val = fibits_[first_pointing - 2];
 
 	while (first_pointing > 2)
 	{

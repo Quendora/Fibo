@@ -25,7 +25,7 @@ private:
 public:
 
 	Fibo(long long n);
-	Fibo(unsigned long long n); //FIXME: It's just for testing purpose
+	Fibo(unsigned long long n);
 	Fibo(int n) : Fibo((long long) n) {};
 	Fibo(unsigned int n) : Fibo((unsigned long long) n) {};
 	Fibo(short n) : Fibo((long long) n) {};
@@ -83,6 +83,10 @@ const Fibo One();
 bool operator<(const Fibo &comp1, const Fibo &comp2);
 
 bool operator>(const Fibo &comp1, const Fibo &comp2);
+
+bool operator<=(const Fibo &comp1, const Fibo &comp2);
+
+bool operator>=(const Fibo &comp1, const Fibo &comp2);
 
 Fibo operator+(const Fibo &comp1, const Fibo &comp2);
 
