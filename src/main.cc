@@ -4,6 +4,8 @@
 #include <zconf.h>
 #include "fibo.h"
 
+using namespace std;
+
 const int n = 10;
 
 int tab[n];
@@ -151,7 +153,7 @@ int main()
 //	cout << (b & a) << endl;
 
 //	Fibo f;
-//	Fibo f0 = Zero();
+	Fibo f0 = Zero();
 //    Fibo f1, f2;
 //    bool b;
 //    size_t a = 1;
@@ -162,18 +164,18 @@ int main()
 //	std::cout << f0 << " <- tyle\n";
 //	Fibo fibo = UINT64_MAX;
 
-//	for(int i = 0; i < 1000; i++) {
-//		for(int j = 0; j < 1000; j++) {
-//			bool tak;
-//			f0 = i;
-//			f0 += j;
-//			tak = (f0 == Fibo(i + j));
-//			if (!tak) {
-//				cout << f0 << " " << tak << " " << i << " " << j <<  "\n";
-//				break;
-//			}
-//		}
-//	}
+	for(int i = 0; i < 1000; i++) {
+		for(int j = 0; j < 1000; j++) {
+			bool tak;
+			f0 = i;
+			f0 += j;
+			tak = (f0 == Fibo(i + j));
+			if (!tak) {
+				std::cout << f0 << " " << tak << " " << i << " " << j <<  "\n";
+				break;
+			}
+		}
+	}
 //	Fibo f12 = Zero();
 //	bool tak = (Zero() <= 3);
 //

@@ -14,7 +14,7 @@ private:
 
 	std::vector<bool> fibits_;
 
-	void Normalize();
+	void normalize();
 
 	bool get(size_t pos) const;
 

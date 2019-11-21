@@ -43,7 +43,7 @@ Fibo::Fibo(const std::string &s)
 
 	reverse(fibits_.begin(), fibits_.end());
 
-	Normalize();
+	normalize();
 }
 
 Fibo::Fibo(long long n)
@@ -59,7 +59,7 @@ Fibo::Fibo(unsigned long long n)
 	{
 		set(n);
 
-		Normalize();
+		normalize();
 	}
 }
 
@@ -316,7 +316,7 @@ Fibo &Fibo::operator<<=(unsigned long long n)
 
 	reverse(fibits_.begin(), fibits_.end());
 
-	Normalize();
+	normalize();
 
 	return *this;
 }
@@ -397,7 +397,7 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 		comp_ptr++;
 	}
 
-	Normalize();
+	normalize();
 
 	return *this;
 }
@@ -432,7 +432,7 @@ Fibo &Fibo::operator|=(const Fibo &comp)
 		comp_ptr++;
 	}
 
-	Normalize();
+	normalize();
 
 	return *this;
 }
@@ -468,7 +468,7 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 		this_ptr++;
 	}
 
-	Normalize();
+	normalize();
 
 	return *this;
 }
@@ -643,12 +643,12 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		temp3 = ONE_BIT;
 	}
 
-	Normalize();
+	normalize();
 
 	return *this;
 }
 
-void Fibo::Normalize()
+void Fibo::normalize()
 {
 	for (int i = 0; i < 3; i++)
 	{
