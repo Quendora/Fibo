@@ -64,12 +64,28 @@ public:
 
 	bool operator<(const Fibo &comp);
 
+	template <class T>
+	Fibo &operator<<=(T) = delete;
+
+	Fibo &operator<<=(unsigned long long n);
+
+	Fibo &operator<<=(long long n);
+
 	Fibo &operator<<=(int n);
 
-//	Fibo &operator<<=(bool n) = delete;
-//	Fibo &operator<<=(char n) = delete;
-//	Fibo &operator<<=(double n) = delete;
-//	Fibo &operator<<=(float n) = delete;
+	Fibo &operator<<=(unsigned int n);
+
+	Fibo &operator<<=(short n);
+
+	Fibo &operator<<=(unsigned short n);
+
+	Fibo &operator<<=(int8_t n);
+
+	Fibo &operator<<=(uint8_t n);
+
+	Fibo &operator<<=(int64_t n);
+
+	Fibo &operator<<=(uint64_t n);
 
 	Fibo &operator^=(const Fibo &comp);
 
@@ -105,7 +121,28 @@ bool operator!=(const Fibo &comp1, const Fibo &comp2);
 
 bool operator==(const Fibo &comp1, const Fibo &comp2);
 
+template <class T>
+Fibo operator<<(const Fibo &comp, T) = delete;
+
+Fibo operator<<(const Fibo &comp, unsigned long long n);
+
+Fibo operator<<(const Fibo &comp, long long n);
+
 Fibo operator<<(const Fibo &comp, int n);
+
+Fibo operator<<(const Fibo &comp, unsigned int n);
+
+Fibo operator<<(const Fibo &comp, short n);
+
+Fibo operator<<(const Fibo &comp, unsigned short n);
+
+Fibo operator<<(const Fibo &comp, int8_t n);
+
+Fibo operator<<(const Fibo &comp, uint8_t n);
+
+Fibo operator<<(const Fibo &comp, int64_t n);
+
+Fibo operator<<(const Fibo &comp, uint64_t n);
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo);
 

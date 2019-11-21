@@ -48,22 +48,16 @@ Fibo::Fibo(const string &s)
 
 Fibo::Fibo(long long n)
 {
-	if (n >= 0)
-	{
-		*this = Fibo((unsigned long long) n);
-	}
-	else
-	{
-		assert(n >= 0);
-	}
+	assert(n >= 0);
+
+	*this = Fibo((unsigned long long) n);
 }
 
 unsigned long long Fibo::set(unsigned long long expected,
 		unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/)
 {
-
 	size_t position = fibits_.size();
-	fibits_.push_back(false);
+	fibits_.push_back(ZERO_BIT);
 
 	if (expected - current >= prev)
 	{
@@ -73,7 +67,7 @@ unsigned long long Fibo::set(unsigned long long expected,
 	if (expected >= current)
 	{
 		auto &&bit = fibits_[position];
-		bit = true;
+		bit = ONE_BIT;
 		expected -= current;
 	}
 
@@ -85,6 +79,8 @@ Fibo::Fibo(unsigned long long n)
 	if (n > 0)
 	{
 		set(n);
+
+		Normalize();
 	}
 }
 
@@ -257,15 +253,61 @@ bool Fibo::operator<(const Fibo &comp)
 	}
 }
 
-Fibo operator<<(const Fibo &comp, int n)
+Fibo operator<<(const Fibo &comp, unsigned long long n)
 {
 	return Fibo(comp) <<= n;
 }
 
-Fibo &Fibo::operator<<=(int n)
+Fibo operator<<(const Fibo &comp, long long n)
 {
 	assert(n >= 0);
 
+	return Fibo(comp) << (unsigned long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, int n)
+{
+	return Fibo(comp) << (long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, unsigned int n)
+{
+	return Fibo(comp) << (unsigned long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, short n)
+{
+	return Fibo(comp) << (long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, unsigned short n)
+{
+	return Fibo(comp) << (unsigned long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, int8_t n)
+{
+	return Fibo(comp) << (long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, uint8_t n)
+{
+	return Fibo(comp) << (unsigned long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, int64_t n)
+{
+	return Fibo(comp) << (long long) n;
+}
+
+Fibo operator<<(const Fibo &comp, uint64_t n)
+{
+	return Fibo(comp) << (unsigned long long) n;
+}
+
+
+Fibo &Fibo::operator<<=(unsigned long long n)
+{
 	reverse(fibits_.begin(), fibits_.end());
 
 	for (int i = 0; i < n; i++)
@@ -278,6 +320,53 @@ Fibo &Fibo::operator<<=(int n)
 	Normalize();
 
 	return *this;
+}
+
+Fibo &Fibo::operator<<=(long long n)
+{
+	assert(n >= 0);
+
+	return *this <<= (unsigned long long) n;
+}
+
+Fibo &Fibo::operator<<=(int n)
+{
+	return *this <<= (long long) n;
+}
+
+Fibo &Fibo::operator<<=(unsigned int n)
+{
+	return *this <<= (unsigned long long) n;
+}
+
+Fibo &Fibo::operator<<=(short n)
+{
+	return *this <<= (long long) n;
+}
+
+Fibo &Fibo::operator<<=(unsigned short n)
+{
+	return *this <<= (unsigned long long) n;
+}
+
+Fibo &Fibo::operator<<=(int8_t n)
+{
+	return *this <<= (long long) n;
+}
+
+Fibo &Fibo::operator<<=(uint8_t n)
+{
+	return *this <<= (unsigned long long) n;
+}
+
+Fibo &Fibo::operator<<=(int64_t n)
+{
+	return *this <<= (long long) n;
+}
+
+Fibo &Fibo::operator<<=(uint64_t n)
+{
+	return *this <<= (unsigned long long) n;
 }
 
 Fibo operator^(const Fibo &comp1, const Fibo &comp2)
