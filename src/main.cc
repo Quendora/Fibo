@@ -128,6 +128,8 @@ int main() {
 //			}
 //		}
 //	}
+	Fibo f12 = Zero();
+	bool tak = (Zero() <= 3);
 
 	assert(f == Zero());
 	assert(Fibo(f) == Zero());
