@@ -149,9 +149,19 @@ Fibo &Fibo::operator=(const Fibo &comp)
 	return *this;
 }
 
+bool operator!=(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) != comp2;
+}
+
 bool Fibo::operator!=(const Fibo &comp)
 {
 	return !(*this == comp);
+}
+
+bool operator==(const Fibo &comp1, const Fibo &comp2)
+{
+	return Fibo(comp1) == comp2;
 }
 
 bool Fibo::operator==(const Fibo &comp)
@@ -422,27 +432,27 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		if (big >= 1)
 		{
 			auto &&temp1 = fibits_[ptr];
-			temp1 = true;
+			temp1 = ONE_BIT;
 		}
 
 		if (medium >= 1)
 		{
 			auto &&temp2 = fibits_[ptr - 1];
-			temp2 = true;
+			temp2 = ONE_BIT;
 		}
 
 		if (small >= 1)
 		{
 			auto &&temp3 = fibits_[ptr - 2];
-			temp3 = true;
+			temp3 = ONE_BIT;
 		}
 
 		if (medium == 2 && small == 0)
 		{
 			auto &&temp1 = fibits_[ptr];
-			temp1 = true;
+			temp1 = ONE_BIT;
 			auto &&temp2 = fibits_[ptr - 1];
-			temp2 = false;
+			temp2 = ZERO_BIT;
 			medium = 0;
 			move++;
 		}
@@ -450,34 +460,34 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		if (medium == 3 && small == 0)
 		{
 			auto &&temp1 = fibits_[ptr];
-			temp1 = true;
+			temp1 = ONE_BIT;
 			auto &&temp2 = fibits_[ptr - 1];
-			temp2 = true;
+			temp2 = ONE_BIT;
 			move++;
 		}
 
 		if (medium == 2 && small == 1)
 		{
 			auto &&temp1 = fibits_[ptr];
-			temp1 = true;
+			temp1 = ONE_BIT;
 			auto &&temp2 = fibits_[ptr - 1];
-			temp2 = true;
+			temp2 = ONE_BIT;
 			medium = 1;
 
 			auto &&temp3 = fibits_[ptr - 2];
-			temp3 = false;
+			temp3 = ZERO_BIT;
 			small = 0;
 		}
 
 		if (medium == 1 && small == 2)
 		{
 			auto &&temp1 = fibits_[ptr];
-			temp1 = true;
+			temp1 = ONE_BIT;
 			auto &&temp2 = fibits_[ptr - 1];
-			temp2 = false;
+			temp2 = ZERO_BIT;
 			medium = 0;
 			auto &&temp3 = fibits_[ptr - 2];
-			temp3 = true;
+			temp3 = ONE_BIT;
 			small = 1;
 		}
 
@@ -497,24 +507,24 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	if (small >= 1)
 	{
 		auto &&temp3 = fibits_[ptr - 2];
-		temp3 = true;
+		temp3 = ONE_BIT;
 	}
 
 	if (small >= 2 && medium == 0)
 	{
 		auto &&temp2 = fibits_[ptr - 1];
-		temp2 = true;
+		temp2 = ONE_BIT;
 		medium = 1;
 		if (small == 2)
 		{
 			auto &&temp3 = fibits_[ptr - 2];
-			temp3 = false;
+			temp3 = ZERO_BIT;
 			small = 0;
 		}
 		else
 		{
 			auto &&temp3 = fibits_[ptr - 2];
-			temp3 = true;
+			temp3 = ONE_BIT;
 			small = 1;
 		}
 	}
@@ -522,11 +532,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	if (medium == 1 && small == 2)
 	{
 		auto &&temp1 = fibits_[ptr];
-		temp1 = true;
+		temp1 = ONE_BIT;
 		auto &&temp2 = fibits_[ptr - 1];
-		temp2 = false;
+		temp2 = ZERO_BIT;
 		auto &&temp3 = fibits_[ptr - 2];
-		temp3 = true;
+		temp3 = ONE_BIT;
 	}
 
 	Normalize();
@@ -538,7 +548,7 @@ void Fibo::Normalize()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		fibits_.push_back(false);
+		fibits_.push_back(ZERO_BIT);
 	}
 
 	size_t first_pointing = 2;
@@ -552,11 +562,11 @@ void Fibo::Normalize()
 			auto &&first_ptr = fibits_[first_pointing];
 			auto &&second_ptr = fibits_[first_pointing - 1];
 			auto &&third_ptr = fibits_[first_pointing - 2];
-			first_ptr = true;
-			first_val = true;
-			second_ptr = false;
-			second_val = false;
-			third_ptr = false;
+			first_ptr = ONE_BIT;
+			first_val = ONE_BIT;
+			second_ptr = ZERO_BIT;
+			second_val = ZERO_BIT;
+			third_ptr = ZERO_BIT;
 		}
 
 		third_val = second_val;
@@ -577,9 +587,9 @@ void Fibo::Normalize()
 			auto &&first_ptr = fibits_[first_pointing];
 			auto &&second_ptr = fibits_[first_pointing - 1];
 			auto &&third_ptr = fibits_[first_pointing - 2];
-			first_ptr = true;
-			second_ptr = false;
-			third_ptr = false;
+			first_ptr = ONE_BIT;
+			second_ptr = ZERO_BIT;
+			third_ptr = ZERO_BIT;
 		}
 	}
 

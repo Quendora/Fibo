@@ -145,6 +145,8 @@ int main() {
 	assert((Fibo("1001") ^ Fibo("1010")) == Fibo("11"));
 	assert((Fibo("101") << 3) == Fibo("101000"));
 
+	Zero() != 3;
+
 	cout << "KONIEC" << endl;
 //	std::cout << f << "\n";
 //	f += 1;

@@ -96,6 +96,10 @@ Fibo operator|(const Fibo &comp1, const Fibo &comp2);
 
 Fibo operator^(const Fibo &comp1, const Fibo &comp2);
 
+bool operator!=(const Fibo &comp1, const Fibo &comp2);
+
+bool operator==(const Fibo &comp1, const Fibo &comp2);
+
 Fibo operator<<(const Fibo &comp, int n);
 
 std::ostream &operator<<(std::ostream &os, Fibo const &fibo);
