@@ -7,6 +7,7 @@
 #include "Fibo.h"
 
 const char ZERO_ASCII = 48;
+const char ONE_ASCII = 49;
 const bool ZERO_BIT = false;
 const bool ONE_BIT = true;
 const int ZERO_NUMBER = 0;
@@ -30,6 +31,8 @@ Fibo::Fibo() = default;
 
 Fibo::Fibo(const string &s)
 {
+	assert(s[0] == ONE_ASCII);
+
 	for (char fibit: s)
 	{
 		auto boolFibit = fibit - ZERO_ASCII;
@@ -55,9 +58,8 @@ Fibo::Fibo(long long n)
 	}
 }
 
-unsigned long long
-Fibo::set(unsigned long long expected, unsigned long long current /*= 1 */,
-		unsigned long long prev /*= 1*/)
+unsigned long long Fibo::set(unsigned long long expected,
+		unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/)
 {
 
 	size_t position = fibits_.size();
