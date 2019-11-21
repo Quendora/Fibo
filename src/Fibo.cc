@@ -480,7 +480,7 @@ bool Fibo::get(size_t pos) const
 		return fibits_[pos];
 	}
 
-	return false;
+	return ZERO_BIT;
 }
 
 Fibo operator+(const Fibo &comp1, const Fibo &comp2)
@@ -506,6 +506,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	}
 
 	size_t ptr = fibits_.size() - 1;
+
 	int big = 0;
 	int medium = 0;
 	int small = 0;
@@ -543,9 +544,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = ONE_BIT;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = ZERO_BIT;
 			medium = 0;
+
 			move++;
 		}
 
@@ -553,8 +556,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = ONE_BIT;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = ONE_BIT;
+			medium = 1;
+
 			move++;
 		}
 
@@ -562,6 +568,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = ONE_BIT;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = ONE_BIT;
 			medium = 1;
@@ -575,6 +582,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = ONE_BIT;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = ZERO_BIT;
 			medium = 0;
@@ -627,8 +635,10 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	{
 		auto &&temp1 = fibits_[ptr];
 		temp1 = ONE_BIT;
+
 		auto &&temp2 = fibits_[ptr - 1];
 		temp2 = ZERO_BIT;
+
 		auto &&temp3 = fibits_[ptr - 2];
 		temp3 = ONE_BIT;
 	}

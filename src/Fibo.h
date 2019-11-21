@@ -49,7 +49,7 @@ public:
 
 	std::string ToString() const;
 
-	size_t length() const; //FIXME tymczasowo size_t --------------------------
+	size_t length() const;
 
 	bool operator!=(const Fibo &comp);
 	bool operator==(const Fibo &comp) ;
