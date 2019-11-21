@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Fibo
 {
 private:
@@ -42,8 +40,8 @@ public:
 	Fibo(const char a) = delete;
 	Fibo(const bool b) = delete;
 
-	explicit Fibo(const string &s);
-	explicit Fibo(const char* s) : Fibo((string) s) {};
+	explicit Fibo(const std::string &s);
+	explicit Fibo(const char* s) : Fibo((std::string) s) {};
 
 	Fibo();
 
@@ -52,7 +50,7 @@ public:
 	size_t length() const;
 
 	bool operator!=(const Fibo &comp);
-	bool operator==(const Fibo &comp) ;
+	bool operator==(const Fibo &comp);
 	bool operator>=(const Fibo &comp);
 	bool operator>(const Fibo &comp);
 	bool operator<=(const Fibo &comp);

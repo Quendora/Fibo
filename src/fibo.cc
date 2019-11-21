@@ -29,7 +29,7 @@ const Fibo One()
 
 Fibo::Fibo() = default;
 
-Fibo::Fibo(const string &s)
+Fibo::Fibo(const std::string &s)
 {
 	assert(s[0] == ONE_ASCII);
 
@@ -107,7 +107,7 @@ size_t Fibo::length() const
 
 std::string Fibo::ToString() const
 {
-	string out;
+	std::string out;
 
 	for (auto it : fibits_)
 	{
