@@ -397,6 +397,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	{
 		fibits_.push_back(ZERO_BIT);
 	}
+
 	for (int i = 0; i < 4; i++)
 	{
 		fibits_.push_back(ZERO_BIT);
@@ -439,6 +440,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = true;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = false;
 			medium = 0;
@@ -449,6 +451,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = true;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = true;
 			move++;
@@ -458,6 +461,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = true;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = true;
 			medium = 1;
@@ -471,9 +475,11 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		{
 			auto &&temp1 = fibits_[ptr];
 			temp1 = true;
+
 			auto &&temp2 = fibits_[ptr - 1];
 			temp2 = false;
 			medium = 0;
+
 			auto &&temp3 = fibits_[ptr - 2];
 			temp3 = true;
 			small = 1;
@@ -503,6 +509,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 		auto &&temp2 = fibits_[ptr - 1];
 		temp2 = true;
 		medium = 1;
+
 		if (small == 2)
 		{
 			auto &&temp3 = fibits_[ptr - 2];
@@ -521,8 +528,10 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	{
 		auto &&temp1 = fibits_[ptr];
 		temp1 = true;
+
 		auto &&temp2 = fibits_[ptr - 1];
 		temp2 = false;
+
 		auto &&temp3 = fibits_[ptr - 2];
 		temp3 = true;
 	}
@@ -537,12 +546,14 @@ void Fibo::Normalize()
 	for (int i = 0; i < 3; i++)
 	{
 		fibits_.push_back(false);
-
 	}
+
 	size_t first_pointing = 2;
+
 	bool first_val = fibits_[first_pointing];
 	bool second_val = fibits_[first_pointing - 1];
 	bool third_val = fibits_[first_pointing - 2];
+
 	while (first_pointing < fibits_.size())
 	{
 		if (third_val && second_val && !first_val)
@@ -550,16 +561,20 @@ void Fibo::Normalize()
 			auto &&first_ptr = fibits_[first_pointing];
 			auto &&second_ptr = fibits_[first_pointing - 1];
 			auto &&third_ptr = fibits_[first_pointing - 2];
+
 			first_ptr = true;
 			first_val = true;
+
 			second_ptr = false;
 			second_val = false;
+
 			third_ptr = false;
 		}
 
+		first_pointing++;
+
 		third_val = second_val;
 		second_val = first_val;
-		first_pointing++;
 		first_val = fibits_[first_pointing];
 	}
 
@@ -568,13 +583,16 @@ void Fibo::Normalize()
 	while (first_pointing > 2)
 	{
 		first_pointing--;
+
 		second_val = fibits_[first_pointing - 1];
 		third_val = fibits_[first_pointing - 2];
+
 		if (third_val && second_val)
 		{
 			auto &&first_ptr = fibits_[first_pointing];
 			auto &&second_ptr = fibits_[first_pointing - 1];
 			auto &&third_ptr = fibits_[first_pointing - 2];
+
 			first_ptr = true;
 			second_ptr = false;
 			third_ptr = false;
@@ -583,6 +601,7 @@ void Fibo::Normalize()
 	}
 
 	first_pointing = fibits_.size() - 1;
+
 	while (!fibits_.empty() && !fibits_[first_pointing])
 	{
 		fibits_.pop_back();
