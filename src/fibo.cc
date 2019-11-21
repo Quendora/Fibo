@@ -309,7 +309,7 @@ Fibo &Fibo::operator<<=(unsigned long long n)
 {
 	reverse(fibits_.begin(), fibits_.end());
 
-	for (int i = 0; i < n; i++)
+	for (unsigned long long i = 0; i < n; i++)
 	{
 		fibits_.push_back(ZERO_BIT);
 	}
