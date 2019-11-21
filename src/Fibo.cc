@@ -537,8 +537,8 @@ void Fibo::Normalize()
 	for (int i = 0; i < 3; i++)
 	{
 		fibits_.push_back(false);
-
 	}
+
 	size_t first_pointing = 2;
 	bool first_val = fibits_[first_pointing];
 	bool second_val = fibits_[first_pointing - 1];
@@ -582,7 +582,6 @@ void Fibo::Normalize()
 			second_ptr = false;
 			third_ptr = false;
 		}
-
 	}
 
 	first_pointing = fibits_.size() - 1;
