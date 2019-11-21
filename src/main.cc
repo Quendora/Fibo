@@ -69,10 +69,14 @@ void testingLSHIFT()
 	int i = 1;
 	char k = 'b';
 	float l = 1.1;
-//
-//	Fibo c = b << l;
-//
-//	std::cerr << c << endl;
+
+	int8_t u = 4;
+
+	Fibo c(10);
+	std::cerr << c << endl;;
+	c <<= u;
+
+	std::cerr << c << endl;;
 }
 
 void testingXOR()

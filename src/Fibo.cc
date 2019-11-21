@@ -53,27 +53,6 @@ Fibo::Fibo(long long n)
 	*this = Fibo((unsigned long long) n);
 }
 
-unsigned long long Fibo::set(unsigned long long expected,
-		unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/)
-{
-	size_t position = fibits_.size();
-	fibits_.push_back(ZERO_BIT);
-
-	if (expected - current >= prev)
-	{
-		expected = set(expected, current + prev, current);
-	}
-
-	if (expected >= current)
-	{
-		auto &&bit = fibits_[position];
-		bit = ONE_BIT;
-		expected -= current;
-	}
-
-	return expected;
-}
-
 Fibo::Fibo(unsigned long long n)
 {
 	if (n > 0)
@@ -97,8 +76,28 @@ Fibo::Fibo(const Fibo &comp)
 	}
 }
 
-Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_))
+Fibo::Fibo(Fibo &&comp) : fibits_(move(comp.fibits_)){}
+
+unsigned long long Fibo::set(unsigned long long expected,
+		unsigned long long current /*= 1 */, unsigned long long prev /*= 1*/)
 {
+	size_t position = fibits_.size();
+
+	fibits_.push_back(ZERO_BIT);
+
+	if (expected - current >= prev)
+	{
+		expected = set(expected, current + prev, current);
+	}
+
+	if (expected >= current)
+	{
+		auto &&bit = fibits_[position];
+		bit = ONE_BIT;
+		expected -= current;
+	}
+
+	return expected;
 }
 
 size_t Fibo::length() const
@@ -386,7 +385,7 @@ Fibo &Fibo::operator^=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-      *this_ptr = (*this_ptr ^ *comp_ptr);
+		*this_ptr = (*this_ptr ^ *comp_ptr);
 
 		comp_ptr++;
 		this_ptr++;
@@ -457,7 +456,7 @@ Fibo &Fibo::operator&=(const Fibo &comp)
 
 	while (comp_ptr != comp.fibits_.end() && this_ptr != fibits_.end())
 	{
-      *this_ptr = (*this_ptr & *comp_ptr);
+		*this_ptr = (*this_ptr & *comp_ptr);
 
 		comp_ptr++;
 		this_ptr++;
@@ -515,6 +514,7 @@ Fibo &Fibo::operator+=(const Fibo &comp)
 	while (ptr >= 2)
 	{
 		move = 0;
+
 		if (ptr >= 3)
 		{
 			move += fibits_[ptr - 3];
@@ -690,11 +690,10 @@ void Fibo::Normalize()
 			auto &&second_ptr = fibits_[first_pointing - 1];
 			auto &&third_ptr = fibits_[first_pointing - 2];
 
-			first_ptr = true;
-			second_ptr = false;
-			third_ptr = false;
+			first_ptr = ONE_BIT;
+			second_ptr = ZERO_BIT;
+			third_ptr = ZERO_BIT;
 		}
-
 	}
 
 	first_pointing = fibits_.size() - 1;
