@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include <cassert>
-#include "Fibo.h"
+#include "fibo.h"
 
 const char ZERO_ASCII = 48;
 const char ONE_ASCII = 49;

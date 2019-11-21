@@ -2,7 +2,7 @@
 #include <cassert>
 #include <vector>
 #include <zconf.h>
-#include "Fibo.h"
+#include "fibo.h"
 
 const int n = 10;
 
